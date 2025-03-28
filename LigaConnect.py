@@ -71,12 +71,67 @@ def abrir_menu():
         if eleccion_menu == 1:
             nombre = input("Ingrese el nombre del jugador: ")
             apellido = input("Ingrese el apellido del jugador: ")
-            edad = int(input("Ingrese la edad del jugador: "))
-            partidos_jugados = int(input("Ingrese los partidos jugados por el jugador: "))
-            goles_totales = int(input("Ingrese los goles totales del jugador: "))
-            asistencias = int(input("Ingrese las asistencias del jugador: "))
-            tarjeta_amarilla = int(input("Ingrese las tarjetas amarillas del jugador: "))
-            tarjeta_roja = int(input("Ingrese las tarjetas rojas del jugador: "))
+
+            while True:
+                try:
+                    edad = int(input("Ingrese la edad del jugador: "))
+                    if edad < 0:
+                        print("La edad no puede ser negativa. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
+            while True:
+                try:
+                    partidos_jugados = int(input("Ingrese los partidos jugados por el jugador: "))
+                    if partidos_jugados < 0:
+                        print("Los partidos no pueden ser negativos. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
+            while True:
+                try:
+                    goles_totales = int(input("Ingrese los goles totales del jugador: "))
+                    if goles_totales < 0:
+                        print("Los goles no pueden ser negativos. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
+            while True:
+                try:
+                    asistencias = int(input("Ingrese las asistencias del jugador: "))
+                    if asistencias < 0:
+                        print("Las asistencias no pueden ser negativas. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
+            while True:
+                try:
+                    tarjeta_amarilla = int(input("Ingrese las tarjetas amarillas del jugador: "))
+                    if tarjeta_amarilla < 0:
+                        print("Las tarjetas amarillas no pueden ser negativas. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
+            while True:
+                try:
+                    tarjeta_roja = int(input("Ingrese las tarjetas rojas del jugador: "))
+                    if tarjeta_roja < 0:
+                        print("Las tarjetas rojas no pueden ser negativas. Intente de nuevo.")
+                    else:
+                        break
+                except ValueError:
+                    print("Por favor, ingrese un número válido.")
+
             agregar_jugador(jugadores, nombre, apellido, edad, partidos_jugados, goles_totales, asistencias, tarjeta_amarilla, tarjeta_roja)
         elif eleccion_menu == 2:
             nombre = input("Ingrese el nombre del equipo: ")
@@ -146,5 +201,20 @@ def top_5_goleadores (jugadores):
         elif jugador['goles_totales'] > goleador5:
             goleador5 = jugador['goles_totales']
             return goleador1, goleador2, goleador3, goleador4, goleador5
-        
-        
+                
+def chequeo_fallas (jugadores):
+    for jugador in jugadores:
+        if jugador['tarjeta_amarilla'] > 2:
+            print(f"El jugador {jugador['nombre']} {jugador['apellido']} ha sido expulsado por acumulación de tarjetas amarillas.")
+        if jugador['tarjeta_roja'] > 0:
+            print(f"El jugador {jugador['nombre']} {jugador['apellido']} ha sido expulsado por tarjeta roja.")
+
+def chequeo_errores(jugadores):
+    for jugador in jugadores:
+        if jugador['tarjeta_amarilla'] > jugador['partidos_jugados']:
+            print(f"Error: {jugador['nombre']} {jugador['apellido']} tiene más amarillas que partidos jugados.")
+        if jugador['tarjeta_roja'] > jugador['partidos_jugados']:
+            print(f"Error: {jugador['nombre']} {jugador['apellido']} tiene más rojas que partidos jugados.")
+        if (jugador['tarjeta_amarilla'] + jugador['tarjeta_roja'] * 2) > jugador['partidos_jugados'] * 2:
+            print(f"Error: {jugador['nombre']} {jugador['apellido']} tiene más tarjetas de las posibles según los partidos jugados.")
+
