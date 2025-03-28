@@ -1,8 +1,11 @@
-"""Matriz Jugador con mas goles""""
+from tabulate import tabulate
+import LigaConnect as lc
 
-matrizEquipos = ['nombre', 'equipo', 'pais', 'perdidas', 'ganadas', 'empatadas', 'goles_favor', 'goles_contra']
+'''Matriz Jugador con mas goles'''
+
+matrizEquipos =[['equipo', 'pais', 'perdidas', 'ganadas', 'empatadas', 'goles_favor', 'goles_contra']]
 matrizJugadores = [['nombre', 'apellido', 'edad', 'partidos_jugados', 'goles_totales', 'asistencias', 'tarjeta_amarilla', 'tarjeta_roja']]
-matrizPartidos = [['estadio', 'capacidad_total', 'entradas_disponibles', 'equipo_local', 'equipo_visitante', 'goles_local', 'goles_visitante', 'fecha']]
+matrizPartidos = [['estadio', 'capacidad_total', 'entradas_disponibles', 'equipo_local', 'equipo_visitante',    'goles_local', 'goles_visitante', 'fecha']]
 
 def agregar_jugadorM(matrizJugadores):
     nombre = input("Ingrese el nombre del jugador: ")
@@ -20,7 +23,6 @@ def agregar_jugadorM(matrizJugadores):
     
     jugador = [nombre, apellido, edad, partidos_jugados, goles_totales, asistencias, tarjeta_amarilla, tarjeta_roja]
     matrizJugadores.append(jugador)
-    return matrizJugadores
 
 def agregar_equipoM(matrizEquipos):
     nombre = input("Ingrese el nombre del equipo: ")
@@ -66,3 +68,53 @@ def buscar_jugador_mas_goles(matrizJugadores):
             jugador = matrizJugadores[i]
     return jugador
     
+def imprimir_matriz(matriz):
+    if not matriz:
+        print("La matriz está vacía.")
+        return
+    
+    
+    # Imprimir la matriz con formato
+    print(tabulate(matriz[1:], headers=matriz[0], tablefmt="fancy_grid"))
+    
+def menu_impresion(eleccion):
+    if eleccion == 1:
+        imprimir_matriz(matrizJugadores)
+    elif eleccion == 2:
+        imprimir_matriz(matrizEquipos)  
+    elif eleccion == 3:
+        imprimir_matriz(matrizPartidos)
+    else:
+        print("Opción no válida. Intente de nuevo.")
+        main(5)
+    
+def main(opcion):
+    while True:
+        print("1. Agregar jugador")
+        print("2. Agregar equipo")
+        print("3. Agregar partido")
+        print("4. Buscar jugador con mas goles")
+        print("5. Ver una matriz")
+        print("6. Salir")
+        opcion = int(input("Ingrese una opción: "))
+        
+        if opcion == 1:
+            agregar_jugadorM(matrizJugadores)
+        elif opcion == 2:
+            agregar_equipoM(matrizEquipos)
+        elif opcion == 3:
+            agregar_partidoM(matrizPartidos)
+        elif opcion == 4:
+            jugador = buscar_jugador_mas_goles(matrizJugadores)
+            print(jugador)
+        elif opcion == 5:
+            eleccion = int(input("1. Jugadores\n2. Equipos\n3. Partidos\nIngrese una opción: "))
+            menu_impresion(eleccion)
+               
+        elif opcion == 6:
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+            
+main()
+
