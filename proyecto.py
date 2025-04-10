@@ -8,6 +8,7 @@ def cantGoles():
     lista=[]
     for i in range (0,5):
         lista.append(random.randint(1,30))
+        lista.sort(reverse=True)
     return lista
 def tarjetasRojas():
     lista=[]
