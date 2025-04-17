@@ -46,9 +46,11 @@ def simular_partidos():
     for jugador in jugadores:
         goles = random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
         asistencias = random.choices([0, 1, 2], weights=[75, 20, 5])[0]
+        rojas = random.choices([0, 1], weights=[99, 1])[0]
 
         jugador['goles'] += goles
-        jugador['asistencias'] += asistencias        
+        jugador['asistencias'] += asistencias     
+        jugador['rojas'] += rojas   
             
     print("✅ Partidos simulados.\n")
 
@@ -76,6 +78,15 @@ def top5_asistencias():
     for i, j in enumerate(ordenado[:5], start=1):
         print(f"{i}. {j['nombre']} {j['apellido']} - {j['asistencias']} asistencias")
 
+def top5_rojas():
+    print("\n🟥 Ranking De Expulsados:")
+    if not jugadores:
+        print("No hay jugadores cargados.")
+        return
+    ordenado = sorted(jugadores, key=lambda x: x['rojas'], reverse=True)
+    for i, j in enumerate(ordenado[:5], start=1):
+        print(f"{i}. {j['nombre']} {j['apellido']} - {j['rojas']} rojas")
+
 def ver_liga_completa():
     print("\n📋 TODOS LOS EQUIPOS:")
     if not equipos:
@@ -100,8 +111,9 @@ def menu():
         print("4. Ver tabla de posiciones")
         print("5. Top 5 goleadores")
         print("6. Top 5 asistencias")
-        print("7. Ver toda la liga (jugadores y equipos)")
-        print("8. Salir")
+        print("7. Top 5 tarjetas rojas")
+        print("8. Ver toda la liga (jugadores y equipos)")
+        print("9. Salir")
 
         opcion = input("Elegí una opción: ")
 
@@ -121,8 +133,10 @@ def menu():
         elif opcion == '6':
             top5_asistencias()
         elif opcion == '7':
-            ver_liga_completa()
+            top5_rojas()
         elif opcion == '8':
+            ver_liga_completa()
+        elif opcion == '9':
             print("👋 ¡Hasta luego!")
             break
         else:
