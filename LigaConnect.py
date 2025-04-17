@@ -1,150 +1,133 @@
+import random
+
 equipos = []
 jugadores = []
-partidos = []
 
-def agregar_jugador(jugadores, nombre, apellido, edad, partidos_jugados, goles_totales, asistencias, tarjeta_amarilla, tarjeta_roja):
+def agregar_equipo(nombre):
+    for equipo in equipos:
+        if equipo['nombre'].lower() == nombre.lower():
+            print("❌ Ese equipo ya está cargado.")
+            return
+        
+    equipo = {
+        'nombre': nombre,
+        'pj': 0,
+        'pg': 0,
+        'pe': 0,
+        'pp': 0,
+        'puntos': 0
+    }
+    equipos.append(equipo)
+    print("✅ Equipo agregado correctamente.")
+
+def agregar_jugador(nombre, apellido):
     jugador = {
         'nombre': nombre,
         'apellido': apellido,
-        "edad": 0,
-        "partidos_jugados": 0,
-        'goles_totales': 0,
+        'goles': 0,
         'asistencias': 0,
-        "tarjeta_amarilla": 0,
-        "tarjeta_roja": 0
+        'rojas': 0
     }
     jugadores.append(jugador)
-    return jugadores
 
-def agregar_equipo(equipos, nombre, pais, perdidas, ganadas, empatadas, goles_favor, goles_contra):
-    equipo = {
-        'nombre': nombre,
-        'pais': pais,
-        'perdidas': 0,
-        'ganadas': 0,
-        'empatadas': 0,
-        'goles_favor': 0,
-        'goles_contra': 0
-    }
-    equipos.append(nombre)
-    return equipos
-
-def agregar_partido(partidos, estadio, capacidad_total, entradas_disponibles, equipo_local, equipo_visitante, goles_local, goles_visitante, fecha):
-    partido = {
-        "estadio": estadio,
-        "capacidad_total": 0,
-        "entradas_disponibles": 0,
-        'equipo_local': equipo_local,
-        'equipo_visitante': equipo_visitante,
-        'goles_local': goles_local,
-        'goles_visitante': goles_visitante,
-        'fecha': fecha
-    }
-    partidos.append(partido)
-    return partidos
-
-def ver_jugadores(jugadores):
+def simular_partidos():
+    for equipo in equipos:
+        resultado = random.choice(['G', 'E', 'P'])
+        equipo['pj'] += 1
+        if resultado == 'G':
+            equipo['pg'] += 1
+            equipo['puntos'] += 3
+        elif resultado == 'E':
+            equipo['pe'] += 1
+            equipo['puntos'] += 1
+        elif resultado == 'P':
+            equipo['pp'] += 1
+            
     for jugador in jugadores:
-        print(f"Nombre: {jugador['nombre']}")
-        print(f"Apellido: {jugador['apellido']}")
-        print(f"Edad: {jugador['edad']}")
-        print(f"Partidos jugados: {jugador['partidos_jugados']}")
-        print(f"Goles totales: {jugador['goles_totales']}")
-        print(f"Asistencias: {jugador['asistencias']}")
-        print(f"Tarjetas amarillas: {jugador['tarjeta_amarilla']}")
-        print(f"Tarjetas rojas: {jugador['tarjeta_roja']}")
-        print("")
+        goles = random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
+        asistencias = random.choices([0, 1, 2], weights=[75, 20, 5])[0]
 
-def mostrar_menu():
-    print("1. Agregar jugador")
-    print("2. Agregar equipo")
-    print("3. Agregar partido")
-    print("4. Ver jugadores")
-    print("5. Ver equipos")
-    print("6. Ver partidos")
-    print("7. Salir")
+        jugador['goles'] += goles
+        jugador['asistencias'] += asistencias        
+            
+    print("✅ Partidos simulados.\n")
 
-def abrir_menu():
+def mostrar_tabla():
+    print("\n🏆 Tabla de posiciones:")
+    tabla = sorted(equipos, key=lambda x: x['puntos'], reverse=True)
+    for e in tabla:
+        print(f"{e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
+
+def top5_goleadores():
+    print("\n⚽ Ranking De Goleadores:")
+    if not jugadores:
+        print("No hay jugadores cargados.")
+        return
+    ordenado = sorted(jugadores, key=lambda x: x['goles'], reverse=True)
+    for i, j in enumerate(ordenado[:5], start=1):
+        print(f"{i}. {j['nombre']} {j['apellido']} - {j['goles']} goles")
+
+def top5_asistencias():
+    print("\n🎯 Ranking De Asistentes:")
+    if not jugadores:
+        print("No hay jugadores cargados.")
+        return
+    ordenado = sorted(jugadores, key=lambda x: x['asistencias'], reverse=True)
+    for i, j in enumerate(ordenado[:5], start=1):
+        print(f"{i}. {j['nombre']} {j['apellido']} - {j['asistencias']} asistencias")
+
+def ver_liga_completa():
+    print("\n📋 TODOS LOS EQUIPOS:")
+    if not equipos:
+        print("No hay equipos cargados.")
+    else:
+        for e in equipos:
+            print(f"{e['nombre']} - PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']}, Puntos: {e['puntos']}")
+    
+    print("\n👥 TODOS LOS JUGADORES:")
+    if not jugadores:
+        print("No hay jugadores cargados.")
+    else:
+        for j in jugadores:
+            print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
+
+def menu():
     while True:
-        mostrar_menu()
-        eleccion_menu = int(input("Ingrese una de las opciones: "))
-        if eleccion_menu == 1:
-            nombre = input("Ingrese el nombre del jugador: ")
-            apellido = input("Ingrese el apellido del jugador: ")
-            edad = int(input("Ingrese la edad del jugador: "))
-            partidos_jugados = int(input("Ingrese los partidos jugados por el jugador: "))
-            goles_totales = int(input("Ingrese los goles totales del jugador: "))
-            asistencias = int(input("Ingrese las asistencias del jugador: "))
-            tarjeta_amarilla = int(input("Ingrese las tarjetas amarillas del jugador: "))
-            tarjeta_roja = int(input("Ingrese las tarjetas rojas del jugador: "))
-            agregar_jugador(jugadores, nombre, apellido, edad, partidos_jugados, goles_totales, asistencias, tarjeta_amarilla, tarjeta_roja)
-        elif eleccion_menu == 2:
-            nombre = input("Ingrese el nombre del equipo: ")
-            pais = input("Ingrese el país del equipo: ")
-            perdidas = int(input("Ingrese las perdidas del equipo: "))
-            ganadas = int(input("Ingrese las ganadas del equipo: "))
-            empatadas = int(input("Ingrese las empatadas del equipo: "))
-            goles_favor = int(input("Ingrese los goles a favor del equipo: "))
-            goles_contra = int(input("Ingrese los goles en contra del equipo: "))
-            agregar_equipo(equipos, nombre, pais, perdidas, ganadas, empatadas, goles_favor, goles_contra)
-        elif eleccion_menu == 3:
-            estadio = input("Ingrese el estadio: ")
-            capacidad_total = int(input("Ingrese la capacidad total del estadio: "))
-            entradas_disponibles = int(input("Ingrese las entradas disponibles: "))
-            equipo_local = input("Ingrese el equipo local: ")
-            equipo_visitante = input("Ingrese el equipo visitante: ")
-            goles_local = int(input("Ingrese los goles del equipo local: "))
-            goles_visitante = int(input("Ingrese los goles del equipo visitante: "))
-            fecha = input("Ingrese la fecha del partido: ")
-            agregar_partido(partidos, estadio, capacidad_total, entradas_disponibles, equipo_local, equipo_visitante, goles_local, goles_visitante, fecha)
-        elif eleccion_menu == 4:
-            ver_jugadores(jugadores)
-        elif eleccion_menu == 5:
-            print(equipos)
-        elif eleccion_menu == 6:
-            print(partidos)
-        elif eleccion_menu == 7:
+        print("\n--- Menú Principal ---")
+        print("1. Agregar equipo")
+        print("2. Agregar jugador")
+        print("3. Simular partidos")
+        print("4. Ver tabla de posiciones")
+        print("5. Top 5 goleadores")
+        print("6. Top 5 asistencias")
+        print("7. Ver toda la liga (jugadores y equipos)")
+        print("8. Salir")
+
+        opcion = input("Elegí una opción: ")
+
+        if opcion == '1':
+            nombre = input("Nombre del equipo: ")
+            agregar_equipo(nombre)
+        elif opcion == '2':
+            nombre = input("Nombre del jugador: ")
+            apellido = input("Apellido del jugador: ")
+            agregar_jugador(nombre, apellido)
+        elif opcion == '3':
+            simular_partidos()
+        elif opcion == '4':
+            mostrar_tabla()
+        elif opcion == '5':
+            top5_goleadores()
+        elif opcion == '6':
+            top5_asistencias()
+        elif opcion == '7':
+            ver_liga_completa()
+        elif opcion == '8':
+            print("👋 ¡Hasta luego!")
             break
         else:
-            print("Opción no válida, intente de nuevo.")
+            print("❌ Opción inválida. Intente nuevamente.")
 
-
-def contar_puntos(equipos):
-    for equipo in equipos:
-        puntos = (equipo['ganadas'] * 3) + (equipo['empatadas'] * 1)
-        print(f"El equipo {equipo['nombre']} tiene {puntos} puntos.")
-        
-        
-def buscar_jugador_por_nombre(jugadores, nombre_buscado):
-    for jugador in jugadores:
-        if jugador['nombre'].lower() == nombre_buscado.lower():
-            return jugador
-    return None      
-
-
-def buscar_jugador_por_apellido(jugadores, apellido_buscado):
-    for jugador in jugadores:
-        if jugador['apellido'].lower() == apellido_buscado.lower():
-            return jugador
-    return None
-
-def top_5_goleadores (jugadores):
-    goleador1=0
-    goleador2=0
-    goleador3=0
-    goleador4=0
-    goleador5=0
-    for jugador in jugadores:
-        if jugador['goles_totales'] > goleador1:
-            goleador1 = jugador['goles_totales']
-        elif jugador['goles_totales'] > goleador2:
-            goleador2 = jugador['goles_totales']
-        elif jugador['goles_totales'] > goleador3:
-            goleador3 = jugador['goles_totales']
-        elif jugador['goles_totales'] > goleador4:
-            goleador4 = jugador['goles_totales']
-        elif jugador['goles_totales'] > goleador5:
-            goleador5 = jugador['goles_totales']
-            return goleador1, goleador2, goleador3, goleador4, goleador5
+menu()
         
         
