@@ -60,32 +60,14 @@ def mostrar_tabla():
     for e in tabla:
         print(f"{e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
 
-def top5_goleadores():
-    print("\n⚽ Ranking De Goleadores:")
+def mostrar_top5_consola(clave, titulo, emoji, unidad):
+    print(f"\n{emoji} Ranking De {titulo}:")
     if not jugadores:
         print("No hay jugadores cargados.")
         return
-    ordenado = sorted(jugadores, key=lambda x: x['goles'], reverse=True)
+    ordenado = sorted(jugadores, key=lambda x: x.get(clave, 0), reverse=True)
     for i, j in enumerate(ordenado[:5], start=1):
-        print(f"{i}. {j['nombre']} {j['apellido']} - {j['goles']} goles")
-
-def top5_asistencias():
-    print("\n🎯 Ranking De Asistentes:")
-    if not jugadores:
-        print("No hay jugadores cargados.")
-        return
-    ordenado = sorted(jugadores, key=lambda x: x['asistencias'], reverse=True)
-    for i, j in enumerate(ordenado[:5], start=1):
-        print(f"{i}. {j['nombre']} {j['apellido']} - {j['asistencias']} asistencias")
-
-def top5_rojas():
-    print("\n🟥 Ranking De Expulsados:")
-    if not jugadores:
-        print("No hay jugadores cargados.")
-        return
-    ordenado = sorted(jugadores, key=lambda x: x['rojas'], reverse=True)
-    for i, j in enumerate(ordenado[:5], start=1):
-        print(f"{i}. {j['nombre']} {j['apellido']} - {j['rojas']} rojas")
+        print(f"{i}. {j['nombre']} {j['apellido']} - {j.get(clave, 0)} {unidad}")
 
 def ver_liga_completa():
     print("\n📋 TODOS LOS EQUIPOS:")
@@ -129,11 +111,11 @@ def menu():
         elif opcion == '4':
             mostrar_tabla()
         elif opcion == '5':
-            top5_goleadores()
+            mostrar_top5_consola('goles', 'Goleadores', '⚽', 'goles')
         elif opcion == '6':
-            top5_asistencias()
+            mostrar_top5_consola('asistencias', 'Asistentes', '🎯', 'asistencias')
         elif opcion == '7':
-            top5_rojas()
+            mostrar_top5_consola('rojas', 'Expulsados', '🟥', 'rojas')
         elif opcion == '8':
             ver_liga_completa()
         elif opcion == '9':
