@@ -99,31 +99,31 @@ def menu():
 
         opcion = input("Elegí una opción: ")
 
-        if opcion == '1':
-            nombre = input("Nombre del equipo: ")
-            agregar_equipo(nombre)
-        elif opcion == '2':
-            nombre = input("Nombre del jugador: ")
-            apellido = input("Apellido del jugador: ")
-            agregar_jugador(nombre, apellido)
-        elif opcion == '3':
-            simular_partidos()
-        elif opcion == '4':
-            mostrar_tabla()
-        elif opcion == '5':
-            mostrar_top5_consola('goles', 'Goleadores', '⚽', 'goles')
-        elif opcion == '6':
-            mostrar_top5_consola('asistencias', 'Asistentes', '🎯', 'asistencias')
-        elif opcion == '7':
-            mostrar_top5_consola('rojas', 'Expulsados', '🟥', 'rojas')
-        elif opcion == '8':
-            ver_liga_completa()
-        elif opcion == '9':
-            print("👋 ¡Hasta luego!")
-            break
-        else:
-            print("❌ Opción inválida. Intente nuevamente.")
-
+        match opcion:
+            case '1':
+                nombre = input("Nombre del equipo: ")
+                agregar_equipo(nombre)
+            case '2':
+                nombre = input("Nombre del jugador: ")
+                apellido = input("Apellido del jugador: ")
+                agregar_jugador(nombre, apellido)
+            case '3':
+                simular_partidos()
+            case '4':
+                mostrar_tabla()
+            case '5':
+                mostrar_top5_consola('goles', 'Goleadores', '⚽', 'goles')
+            case '6':
+                mostrar_top5_consola('asistencias', 'Asistentes', '🎯', 'asistencias')
+            case '7':
+                mostrar_top5_consola('rojas', 'Expulsados', '🟥', 'rojas')
+            case '8':
+                ver_liga_completa()
+            case '9':
+                print("👋 ¡Hasta luego!")
+                break
+            case _:
+                print("❌ Opción inválida. Intente nuevamente.")
 menu()
         
         
