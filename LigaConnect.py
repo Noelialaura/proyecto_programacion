@@ -9,20 +9,37 @@ def agregar_equipo(nombre):
             print("❌ Ese equipo ya está cargado.")
             return
         
-    equipo = {
-        'nombre': nombre,
+    try:
+        while int(nombre):
+            print("ERROR, solo se aceptan caracteres, NO NUMEROS")
+            nombre = input("ingrese otro nombre: ")
+    except ValueError:
+        equipo = {
+     'nombre': nombre,
         'pj': 0,
         'pg': 0,
         'pe': 0,
         'pp': 0,
         'puntos': 0
     }
-    equipos.append(equipo)
-    print("✅ Equipo agregado correctamente.")
+        equipos.append(equipo)
+        print("✅ Equipo agregado correctamente.")
 
 def agregar_jugador(nombre, apellido):
-    jugador = {
+    try:
+        while int(nombre):
+            print("ERROR, INGRESE UN NOMBRE")
+            nombre = input("ingrese un nombre: ")
+    except ValueError:
+        jugador = {
         'nombre': nombre,
+        }
+    try:
+         while int(apellido):
+            print("ERROR, INGRESE UN APELLIDO")
+            apellido = input("ingrese un apellido: ")
+    except ValueError:
+        jugador = {
         'apellido': apellido,
         'goles': 0,
         'asistencias': 0,
