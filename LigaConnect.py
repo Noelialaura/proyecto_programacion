@@ -1,4 +1,6 @@
 import random
+import json
+from datetime import datetime
 
 equipos = []
 jugadores = []
@@ -101,6 +103,32 @@ def ver_liga_completa():
         for j in jugadores:
             print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
 
+def comprar_entrada():
+    nombre_cliente = input("Nombre del cliente: ")
+    estadio = input("Estadio del partido: ")
+    fecha = input("Fecha del partido (formato YYYY-MM-DD): ")
+    precio = input("Precio de la entrada: ")
+
+    entrada = {
+        "cliente": nombre_cliente,
+        "estadio": estadio,
+        "fecha": fecha,
+        "precio": precio
+    }
+
+    try:
+        with open("entradas.json", "r") as file:
+            entradas = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        entradas = []
+
+    entradas.append(entrada)
+
+    with open("entradas.json", "w") as file:
+        json.dump(entradas, file, indent=4)
+
+    print("✅ Entrada registrada correctamente.")
+
 def menu():
     while True:
         print("\n--- Menú Principal ---")
@@ -113,6 +141,7 @@ def menu():
         print("7. Top 5 tarjetas rojas")
         print("8. Ver toda la liga (jugadores y equipos)")
         print("9. Salir")
+        print("10. Comprar entrada")
 
         opcion = input("Elegí una opción: ")
 
@@ -139,8 +168,8 @@ def menu():
             case '9':
                 print("👋 ¡Hasta luego!")
                 break
+            case '10':
+                comprar_entrada()
             case _:
                 print("❌ Opción inválida. Intente nuevamente.")
 menu()
-        
-        
