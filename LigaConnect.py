@@ -4,6 +4,13 @@ from datetime import datetime
 
 equipos = []
 jugadores = []
+estadios = {
+    "Estadio Monumental": 80000,
+    "La Bombonera": 54000,
+    "Estadio Único": 53000,
+    "Cilindro de Avellaneda": 51000,
+    "Nuevo Gasómetro": 47000
+}
 
 def agregar_equipo(nombre):
     for equipo in equipos:
@@ -105,7 +112,19 @@ def ver_liga_completa():
 
 def comprar_entrada():
     nombre_cliente = input("Nombre del cliente: ")
+    print("\nEstadios disponibles:")
+    for estadio in estadios:
+        print(f"- {estadio} (Capacidad disponible: {estadios[estadio]})")
     estadio = input("Estadio del partido: ")
+
+    if estadio not in estadios:
+        print("❌ Estadio no válido.")
+        return
+
+    if estadios[estadio] <= 0:
+        print("❌ No hay capacidad disponible en este estadio.")
+        return
+
     fecha = input("Fecha del partido (formato YYYY-MM-DD): ")
     precio = input("Precio de la entrada: ")
 
@@ -123,6 +142,7 @@ def comprar_entrada():
         entradas = []
 
     entradas.append(entrada)
+    estadios[estadio] -= 1
 
     with open("entradas.json", "w") as file:
         json.dump(entradas, file, indent=4)
