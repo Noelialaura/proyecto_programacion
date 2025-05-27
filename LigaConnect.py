@@ -17,44 +17,36 @@ def agregar_equipo(nombre):
         if equipo['nombre'].lower() == nombre.lower():
             print("❌ Ese equipo ya está cargado.")
             return
-        
-    try:
-        while int(nombre):
-            print("ERROR, solo se aceptan caracteres, NO NUMEROS")
-            nombre = input("ingrese otro nombre: ")
-    except ValueError:
-        equipo = {
-     'nombre': nombre,
+    
+    if any(char.isdigit() for char in nombre):
+        print("❌ El nombre no puede contener números.")
+        return
+
+    equipo = {
+        'nombre': nombre,
         'pj': 0,
         'pg': 0,
         'pe': 0,
         'pp': 0,
         'puntos': 0
     }
-        equipos.append(equipo)
-        print("✅ Equipo agregado correctamente.")
+    equipos.append(equipo)
+    print("✅ Equipo agregado correctamente.")
 
 def agregar_jugador(nombre, apellido):
-    try:
-        while int(nombre):
-            print("ERROR, INGRESE UN NOMBRE")
-            nombre = input("ingrese un nombre: ")
-    except ValueError:
-        jugador = {
+    if any(char.isdigit() for char in nombre) or any(char.isdigit() for char in apellido):
+        print("❌ El nombre o apellido no puede contener números.")
+        return
+
+    jugador = {
         'nombre': nombre,
-        }
-    try:
-         while int(apellido):
-            print("ERROR, INGRESE UN APELLIDO")
-            apellido = input("ingrese un apellido: ")
-    except ValueError:
-        jugador = {
         'apellido': apellido,
         'goles': 0,
         'asistencias': 0,
         'rojas': 0
     }
     jugadores.append(jugador)
+    print("✅ Jugador agregado correctamente.")
 
 def simular_partidos():
     for equipo in equipos:
@@ -115,18 +107,31 @@ def comprar_entrada():
     print("\nEstadios disponibles:")
     for estadio in estadios:
         print(f"- {estadio} (Capacidad disponible: {estadios[estadio]})")
-    estadio = input("Estadio del partido: ")
 
-    if estadio not in estadios:
+    estadio_input = input("Estadio del partido: ")
+    estadios_lower = {e.lower(): e for e in estadios}
+
+    if estadio_input.lower() not in estadios_lower:
         print("❌ Estadio no válido.")
         return
+
+    estadio = estadios_lower[estadio_input.lower()]
 
     if estadios[estadio] <= 0:
         print("❌ No hay capacidad disponible en este estadio.")
         return
 
     fecha = input("Fecha del partido (formato YYYY-MM-DD): ")
+    try:
+        datetime.strptime(fecha, "%Y-%m-%d")
+    except ValueError:
+        print("❌ Fecha no válida. Use el formato YYYY-MM-DD.")
+        return
+
     precio = input("Precio de la entrada: ")
+    if not precio.isdigit():
+        print("❌ El precio debe ser numérico.")
+        return
 
     entrada = {
         "cliente": nombre_cliente,
@@ -160,10 +165,14 @@ def menu():
         print("6. Top 5 asistencias")
         print("7. Top 5 tarjetas rojas")
         print("8. Ver toda la liga (jugadores y equipos)")
-        print("9. Salir")
-        print("10. Comprar entrada")
+        print("9. Comprar entrada")
+        print("10. Salir")
 
         opcion = input("Elegí una opción: ")
+
+        if not opcion.isdigit() or not (1 <= int(opcion) <= 10):
+            print("❌ Opción inválida. Ingrese un valor correcto.")
+            continue
 
         match opcion:
             case '1':
@@ -186,12 +195,9 @@ def menu():
             case '8':
                 ver_liga_completa()
             case '9':
+                comprar_entrada()
+            case '10':
                 print("👋 ¡Hasta luego!")
                 break
-            case '10':
-                comprar_entrada()
-            case _:
-                print("❌ Opción inválida. Intente nuevamente.")
+
 menu()
-
-
