@@ -4,7 +4,13 @@ from datetime import datetime
 
 equipos = []
 jugadores = []
-
+estadios = {
+    "Estadio Monumental": 80000,
+    "La Bombonera": 54000,
+    "Estadio Único": 53000,
+    "Cilindro de Avellaneda": 51000,
+    "Nuevo Gasómetro": 47000
+}
 def agregar_equipo(nombre):
     for equipo in equipos:
         if equipo['nombre'].lower() == nombre.lower():
@@ -105,9 +111,34 @@ def ver_liga_completa():
 
 def comprar_entrada():
     nombre_cliente = input("Nombre del cliente: ")
-    estadio = input("Estadio del partido: ")
+    print("\nEstadios disponibles:")
+    for estadio in estadios:
+        print(f"- {estadio} (Capacidad disponible: {estadios[estadio]})")
+
+    estadio_input = input("Estadio del partido: ")
+    estadios_lower = {e.lower(): e for e in estadios}
+
+    if estadio_input.lower() not in estadios_lower:
+        print("❌ Estadio no válido.")
+        return
+
+    estadio = estadios_lower[estadio_input.lower()]
+
+    if estadios[estadio] <= 0:
+        print("❌ No hay capacidad disponible en este estadio.")
+        return
+
     fecha = input("Fecha del partido (formato YYYY-MM-DD): ")
+    try:
+        datetime.strptime(fecha, "%Y-%m-%d")
+    except ValueError:
+        print("❌ Fecha no válida. Use el formato YYYY-MM-DD.")
+        return
+
     precio = input("Precio de la entrada: ")
+    if not precio.isdigit():
+        print("❌ El precio debe ser numérico.")
+        return
 
     entrada = {
         "cliente": nombre_cliente,
@@ -123,6 +154,7 @@ def comprar_entrada():
         entradas = []
 
     entradas.append(entrada)
+    estadios[estadio] -= 1
 
     with open("entradas.json", "w") as file:
         json.dump(entradas, file, indent=4)
@@ -140,10 +172,14 @@ def menu():
         print("6. Top 5 asistencias")
         print("7. Top 5 tarjetas rojas")
         print("8. Ver toda la liga (jugadores y equipos)")
-        print("9. Salir")
-        print("10. Comprar entrada")
+        print("9. Comprar entrada")
+        print("10. Salir")
 
         opcion = input("Elegí una opción: ")
+
+        if not opcion.isdigit() or not (1 <= int(opcion) <= 10):
+            print("❌ Opción inválida. Ingrese un valor correcto.")
+            continue
 
         match opcion:
             case '1':
@@ -166,10 +202,9 @@ def menu():
             case '8':
                 ver_liga_completa()
             case '9':
+                comprar_entrada()
+            case '10':
                 print("👋 ¡Hasta luego!")
                 break
-            case '10':
-                comprar_entrada()
-            case _:
-                print("❌ Opción inválida. Intente nuevamente.")
+
 menu()
