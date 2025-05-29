@@ -12,6 +12,7 @@ estadios = {
     "Nuevo Gasómetro": 47000
 }
 def agregar_equipo(nombre):
+    
     for equipo in equipos:
         if equipo['nombre'].lower() == nombre.lower():
             print("❌ Ese equipo ya está cargado.")
@@ -54,6 +55,7 @@ def agregar_jugador(nombre, apellido):
         'rojas': 0
     }
     jugadores.append(jugador)
+    print("✅ Jugador agregado correctamente.")
 
 def simular_partidos():
     for equipo in equipos:
