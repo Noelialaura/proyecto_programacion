@@ -1,0 +1,212 @@
+[
+    {
+        "nombre": "Manuel",
+        "apellido": "Gómez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Javier",
+        "apellido": "González",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Ricardo",
+        "apellido": "Rodríguez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Fernando",
+        "apellido": "Flores",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Martínez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Ramos",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Andrés",
+        "apellido": "González",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Juan",
+        "apellido": "Ramírez",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Ricardo",
+        "apellido": "González",
+        "goles": 2,
+        "asistencias": 1,
+        "rojas": 1
+    },
+    {
+        "nombre": "Andrés",
+        "apellido": "Flores",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Ricardo",
+        "apellido": "Castillo",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Flores",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Miguel",
+        "apellido": "Pérez",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Diego",
+        "apellido": "Pérez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Ramos",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Diego",
+        "apellido": "González",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Alejandro",
+        "apellido": "Pérez",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Díaz",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Andrés",
+        "apellido": "Pérez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Luis",
+        "apellido": "Pérez",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Andrés",
+        "apellido": "Castillo",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "López",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Juan",
+        "apellido": "Vargas",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Carlos",
+        "apellido": "Flores",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Héctor",
+        "apellido": "Sánchez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Miguel",
+        "apellido": "Pérez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Manuel",
+        "apellido": "González",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Héctor",
+        "apellido": "Gómez",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Andrés",
+        "apellido": "González",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Fernando",
+        "apellido": "Rodríguez",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    }
+]
