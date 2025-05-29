@@ -111,9 +111,13 @@ def ver_liga_completa():
         for j in jugadores:
             print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
 
-def comprar_entrada():
-    nombre_cliente = input("Nombre del cliente: ")
-    print("\nEstadios disponibles:")
+def comprar_entrada(nombre_cliente):
+    try:
+        while int(nombre_cliente):
+            print("ERROR, ingrese un nombre")
+            nombre_cliente= input("Nombre del cliente: ")
+    except ValueError:
+        print("\nEstadios disponibles:")
     for estadio in estadios:
         print(f"- {estadio} (Capacidad disponible: {estadios[estadio]})")
 
@@ -204,7 +208,8 @@ def menu():
             case '8':
                 ver_liga_completa()
             case '9':
-                comprar_entrada()
+                nombre_cliente = input("Nombre del cliente: ")
+                comprar_entrada(nombre_cliente)
             case '10':
                 print("👋 ¡Hasta luego!")
                 break
