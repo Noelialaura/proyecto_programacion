@@ -1,6 +1,8 @@
 import random
 import json
 from datetime import datetime, timedelta
+import time
+import sys
 
 # Inicialización de estructuras de datos
 estadios = {
@@ -69,6 +71,15 @@ while len(partidos) < 6 and len(usados) < 66:
         "precio": precio,
         "entradas_vendidas": 0  # Contador de entradas vendidas
     })
+    
+def barra_de_carga(total=20, delay=0.1):
+    for i in range(total + 1):
+        porcentaje = int((i / total) * 100)
+        barra = '=' * i + ' ' * (total - i)
+        sys.stdout.write(f'\r[{barra}] {porcentaje}%')
+        sys.stdout.flush()
+        time.sleep(delay)
+    print("\n✅ Proceso terminado.")
 
 def simular_partidos():
     """Función corregida para simular partidos"""
@@ -193,6 +204,7 @@ def procesar_pago():
                 json.dump(pagos, f, indent=4)
             
             partido['entradas_vendidas'] += cantidad
+            barra_de_carga()
             print(f"✔ Compra registrada correctamente. {cantidad} entrada(s) vendida(s).")
         else:
             print("❌ Compra cancelada.")
