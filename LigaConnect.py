@@ -1,54 +1,35 @@
 import random
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
-equipos = []
-jugadores = []
+# Inicialización de estructuras de datos
 estadios = {
-    "Estadio Monumental": 80000,
-    "La Bombonera": 54000,
-    "Estadio Único": 53000,
-    "Cilindro de Avellaneda": 51000,
-    "Nuevo Gasómetro": 47000
+    "Estadio A": 50000,
+    "Estadio B": 45000
 }
-def agregar_equipo(nombre):
-    
-    for equipo in equipos:
-        if equipo['nombre'].lower() == nombre.lower():
-            print("❌ Ese equipo ya está cargado.")
-            return
-        
-    try:
-        while int(nombre):
-            print("ERROR, solo se aceptan caracteres, NO NUMEROS")
-            nombre = input("ingrese otro nombre: ")
-    except ValueError:
-        equipo = {
-     'nombre': nombre,
-        'pj': 0,
-        'pg': 0,
-        'pe': 0,
-        'pp': 0,
-        'puntos': 0
-    }
-        equipos.append(equipo)
-        print("✅ Equipo agregado correctamente.")
+
+jugadores = []
+
+# Equipos como diccionarios con estadísticas iniciales
+equipos = [
+    {"nombre": "River Plate", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Boca Juniors", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Racing Club", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Independiente", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "San Lorenzo", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Huracán", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Vélez Sarsfield", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Estudiantes", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Gimnasia", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Newell's Old Boys", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Rosario Central", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
+    {"nombre": "Argentinos Juniors", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0}
+]
 
 def agregar_jugador(nombre, apellido):
-    try:
-        while int(nombre):
-            print("ERROR, INGRESE UN NOMBRE")
-            nombre = input("ingrese un nombre: ")
-    except ValueError:
-        jugador = {
+    """Función corregida para agregar jugadores sin validación redundante"""
+    jugador = {
         'nombre': nombre,
-        }
-    try:
-         while int(apellido):
-            print("ERROR, INGRESE UN APELLIDO")
-            apellido = input("ingrese un apellido: ")
-    except ValueError:
-        jugador = {
         'apellido': apellido,
         'goles': 0,
         'asistencias': 0,
@@ -57,10 +38,44 @@ def agregar_jugador(nombre, apellido):
     jugadores.append(jugador)
     print("✅ Jugador agregado correctamente.")
 
+# Generar partidos aleatorios entre equipos sin repetir
+random.seed(datetime.now().timestamp())
+partidos = []
+usados = set()
+fechas_base = datetime(2025, 6, 1)
+dias_disponibles = list(range(1, 31))
+
+while len(partidos) < 6 and len(usados) < 66:
+    eq1, eq2 = random.sample(equipos, 2)
+    key = tuple(sorted([eq1['nombre'], eq2['nombre']]))
+    if key in usados:
+        continue
+    usados.add(key)
+    
+    if not dias_disponibles:
+        dias_disponibles = list(range(1, 31))
+    
+    dia = dias_disponibles.pop(random.randint(0, len(dias_disponibles)-1))
+    fecha = (fechas_base + timedelta(days=dia)).strftime("%Y-%m-%d")
+    estadio = random.choice(list(estadios.keys()))
+    precio = random.randint(20000, 50000)
+    
+    partidos.append({
+        "id": len(partidos) + 1,
+        "fecha": fecha,
+        "estadio": estadio,
+        "equipos": f"{eq1['nombre']} vs {eq2['nombre']}",
+        "capacidad": estadios[estadio],
+        "precio": precio,
+        "entradas_vendidas": 0  # Contador de entradas vendidas
+    })
+
 def simular_partidos():
+    """Función corregida para simular partidos"""
     for equipo in equipos:
         resultado = random.choice(['G', 'E', 'P'])
         equipo['pj'] += 1
+        
         if resultado == 'G':
             equipo['pg'] += 1
             equipo['puntos'] += 3
@@ -69,29 +84,40 @@ def simular_partidos():
             equipo['puntos'] += 1
         elif resultado == 'P':
             equipo['pp'] += 1
-            
+    
+    # Simular estadísticas de jugadores
     for jugador in jugadores:
-        goles = random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
-        asistencias = random.choices([0, 1, 2], weights=[75, 20, 5])[0]
-        rojas = random.choices([0, 1], weights=[99, 1])[0]
-
-        jugador['goles'] += goles
-        jugador['asistencias'] += asistencias     
-        jugador['rojas'] += rojas   
-            
+        jugador['goles'] += random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
+        jugador['asistencias'] += random.choices([0, 1, 2], weights=[75, 20, 5])[0]
+        jugador['rojas'] += random.choices([0, 1], weights=[99, 1])[0]
+    
     print("✅ Partidos simulados.\n")
+
+def mostrar_partidos():
+    print("\n=== Lista de Partidos Disponibles ===")
+    for p in partidos:
+        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y')
+        print(f"ID: {p['id']}")
+        print(f"Fecha: {fecha_fmt}")
+        print(f"Estadio: {p['estadio']}")
+        print(f"Equipos: {p['equipos']}")
+        print(f"Capacidad: {p['capacidad']:,} personas")
+        print(f"Entradas vendidas: {p['entradas_vendidas']}")
+        print(f"Precio: ${p['precio']:,} ARS")
+        print("---------------------------")
 
 def mostrar_tabla():
     print("\n🏆 Tabla de posiciones:")
     tabla = sorted(equipos, key=lambda x: x['puntos'], reverse=True)
-    for e in tabla:
-        print(f"{e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
+    for i, e in enumerate(tabla, start=1):
+        print(f"{i}. {e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
 
 def mostrar_top5_consola(clave, titulo, emoji, unidad):
     print(f"\n{emoji} Ranking De {titulo}:")
     if not jugadores:
         print("No hay jugadores cargados.")
         return
+    
     ordenado = sorted(jugadores, key=lambda x: x.get(clave, 0), reverse=True)
     for i, j in enumerate(ordenado[:5], start=1):
         print(f"{i}. {j['nombre']} {j['apellido']} - {j.get(clave, 0)} {unidad}")
@@ -111,68 +137,75 @@ def ver_liga_completa():
         for j in jugadores:
             print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
 
-def comprar_entrada(nombre_cliente):
+def procesar_pago():
+    mostrar_partidos()
     try:
-        while int(nombre_cliente):
-            print("ERROR, ingrese un nombre")
-            nombre_cliente= input("Nombre del cliente: ")
+        partido_id = int(input("Ingrese el ID del partido a pagar: "))
+        partido = next((p for p in partidos if p['id'] == partido_id), None)
+        
+        if not partido:
+            print("❌ Partido no encontrado.")
+            return
+        
+        if partido['entradas_vendidas'] >= partido['capacidad']:
+            print("❌ No hay entradas disponibles para este partido.")
+            return
+        
+        print(f"\nProcesando pago para: {partido['equipos']}")
+        print(f"Estadio: {partido['estadio']}, Fecha: {partido['fecha']}")
+        print(f"Precio por entrada: ${partido['precio']:,} ARS")
+        print(f"Entradas disponibles: {partido['capacidad'] - partido['entradas_vendidas']}")
+        
+        cantidad = int(input("¿Cuántas entradas desea comprar? "))
+        if cantidad <= 0:
+            print("❌ Cantidad inválida.")
+            return
+        
+        if partido['entradas_vendidas'] + cantidad > partido['capacidad']:
+            print("❌ No hay suficientes entradas disponibles.")
+            return
+        
+        total = cantidad * partido['precio']
+        print(f"\nTotal a pagar: ${total:,} ARS")
+        
+        confirmacion = input("¿Confirmar compra? (s/n): ").strip().lower()
+        if confirmacion == 's':
+            nombre = input("Nombre del cliente: ")
+            
+            entrada = {
+                "cliente": nombre,
+                "partido": partido['equipos'],
+                "estadio": partido['estadio'],
+                "fecha": partido['fecha'],
+                "cantidad": cantidad,
+                "precio_unitario": partido['precio'],
+                "total": total
+            }
+            
+            try:
+                with open("pagos.json", "r") as f:
+                    pagos = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                pagos = []
+            
+            pagos.append(entrada)
+            with open("pagos.json", "w") as f:
+                json.dump(pagos, f, indent=4)
+            
+            partido['entradas_vendidas'] += cantidad
+            print(f"✔ Compra registrada correctamente. {cantidad} entrada(s) vendida(s).")
+        else:
+            print("❌ Compra cancelada.")
+            
     except ValueError:
-        print("\nEstadios disponibles:")
-    for estadio in estadios:
-        print(f"- {estadio} (Capacidad disponible: {estadios[estadio]})")
-
-    estadio_input = input("Estadio del partido: ")
-    estadios_lower = {e.lower(): e for e in estadios}
-
-    if estadio_input.lower() not in estadios_lower:
-        print("❌ Estadio no válido.")
-        return
-
-    estadio = estadios_lower[estadio_input.lower()]
-
-    if estadios[estadio] <= 0:
-        print("❌ No hay capacidad disponible en este estadio.")
-        return
-
-    fecha = input("Fecha del partido (formato YYYY-MM-DD): ")
-    try:
-        datetime.strptime(fecha, "%Y-%m-%d")
-    except ValueError:
-        print("❌ Fecha no válida. Use el formato YYYY-MM-DD.")
-        return
-
-    precio = input("Precio de la entrada: ")
-    if not precio.isdigit():
-        print("❌ El precio debe ser numérico.")
-        return
-
-    entrada = {
-        "cliente": nombre_cliente,
-        "estadio": estadio,
-        "fecha": fecha,
-        "precio": precio
-    }
-
-    try:
-        with open("entradas.json", "r") as file:
-            entradas = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        entradas = []
-
-    entradas.append(entrada)
-    estadios[estadio] -= 1
-
-    with open("entradas.json", "w") as file:
-        json.dump(entradas, file, indent=4)
-
-    print("✅ Entrada registrada correctamente.")
+        print("❌ Entrada inválida. Por favor ingrese un número.")
 
 def menu():
     while True:
         print("\n--- Menú Principal ---")
-        print("1. Agregar equipo")
-        print("2. Agregar jugador")
-        print("3. Simular partidos")
+        print("1. Agregar jugador")
+        print("2. Simular partidos")
+        print("3. Mostrar partidos programados")
         print("4. Ver tabla de posiciones")
         print("5. Top 5 goleadores")
         print("6. Top 5 asistencias")
@@ -181,22 +214,21 @@ def menu():
         print("9. Comprar entrada")
         print("10. Salir")
 
-        opcion = input("Elegí una opción: ")
+        opcion = input("Seleccione una opción (1-10): ")
 
         if not opcion.isdigit() or not (1 <= int(opcion) <= 10):
-            print("❌ Opción inválida. Ingrese un valor correcto.")
+            print("❌ Opción inválida. Por favor ingrese un número del 1 al 10.")
             continue
 
         match opcion:
             case '1':
-                nombre = input("Nombre del equipo: ")
-                agregar_equipo(nombre)
-            case '2':
                 nombre = input("Nombre del jugador: ")
                 apellido = input("Apellido del jugador: ")
                 agregar_jugador(nombre, apellido)
-            case '3':
+            case '2':
                 simular_partidos()
+            case '3':
+                mostrar_partidos()
             case '4':
                 mostrar_tabla()
             case '5':
@@ -208,10 +240,12 @@ def menu():
             case '8':
                 ver_liga_completa()
             case '9':
-                nombre_cliente = input("Nombre del cliente: ")
-                comprar_entrada(nombre_cliente)
+                procesar_pago()
             case '10':
                 print("👋 ¡Hasta luego!")
                 break
+            case _:
+                print("Opción inválida 🚫")
 
-menu()
+if __name__ == "__main__":
+    menu()
