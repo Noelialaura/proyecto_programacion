@@ -2,6 +2,8 @@
 import json
 import random
 from datetime import datetime, timedelta
+import time
+import sys
 
 estadios = {
     "Estadio A": 50000,
@@ -40,6 +42,15 @@ while len(partidos) < 6 and len(usados) < 66:
         "capacidad": estadios[estadio],
         "precio": precio
     })
+
+def barra_de_carga(total=20, delay=0.1):
+    for i in range(total + 1):
+        porcentaje = int((i / total) * 100)
+        barra = '=' * i + ' ' * (total - i)
+        sys.stdout.write(f'\r[{barra}] {porcentaje}%')
+        sys.stdout.flush()
+        time.sleep(delay)
+    print("\n✅ Proceso terminado.")
 
 def mostrar_partidos():
     print("\n=== Lista de Partidos Disponibles ===")
@@ -81,6 +92,7 @@ def procesar_pago():
                 with open("pagos.json", "w") as f:
                     json.dump(pagos, f, indent=4)
                 estadios[partido['estadio']] -= 1
+                barra_de_carga()
                 print("✔ Pago registrado correctamente.")
             else:
                 print("❌ Pago cancelado.")

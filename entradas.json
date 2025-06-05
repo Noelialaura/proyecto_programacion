@@ -1,11 +1,8 @@
 [
     {
-        "cliente": "Mile",
-        "estadio": "Chaca",
-        "fecha": "2025-10-3",
-        "precio": "5000"
-    },
-    {
-        "cliente": "mile",
-        "estadio": "a",
-        "fecha": 
+        "cliente": "juan",
+        "estadio": "La Bombonera",
+        "fecha": "2025-12-12",
+        "precio": "1000"
+    }
+]
