@@ -1,6 +1,8 @@
 import random
 import json
 from datetime import datetime
+import time
+import sys
 
 equipos = []
 jugadores = []
@@ -215,3 +217,16 @@ def menu():
                 break
 
 menu()
+
+
+def barra_de_carga(total=20, delay=0.1):
+    for i in range(total + 1):
+        porcentaje = int((i / total) * 100)
+        barra = '=' * i + ' ' * (total - i)
+        sys.stdout.write(f'\r[{barra}] {porcentaje}%')
+        sys.stdout.flush()
+        time.sleep(delay)
+    print("\n✅ Proceso terminado.")
+
+# Ejemplo de uso:
+barra_de_carga()
