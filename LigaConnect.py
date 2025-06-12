@@ -27,6 +27,7 @@ def agregar_jugador(nombre, apellido):
     jugadores.append(jugador)
     print("✅ Jugador agregado correctamente.")
 def resetear_puntajes():
+    global equipos
     confirmacion = input("⚠️ Esto reiniciará todos los puntajes. ¿Estás seguro? (s/n): ").strip().lower()
     if confirmacion != 's':
         print("❌ Operación cancelada.")
@@ -44,6 +45,9 @@ def resetear_puntajes():
 
     with open("equipos.json", "w") as f:
         json.dump(equipos, f, indent=4)
+
+    with open("equipos.json", "r") as f:
+        equipos = json.load(f)
 
     print("🔄 Puntajes reseteados.")
 
@@ -111,7 +115,12 @@ def simular_partidos():
     
     with open("equipos.json", "w") as f:
         json.dump(equipos, f, indent=4)
-    
+
+    # Recargar los datos de equipos desde el archivo para reflejar los cambios en memoria
+    global equipos
+    with open("equipos.json", "r") as f:
+        equipos = json.load(f)
+
     print("✅ Partidos simulados.\n")
 
 def mostrar_partidos():
