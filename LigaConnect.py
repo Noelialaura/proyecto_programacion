@@ -1,5 +1,7 @@
 import random
 import json
+with open("equipos.json", "r") as f:
+    equipos = json.load(f)
 from datetime import datetime, timedelta
 import time
 import sys
@@ -12,21 +14,6 @@ estadios = {
 
 jugadores = []
 
-# Equipos como diccionarios con estadísticas iniciales
-equipos = [
-    {"nombre": "River Plate", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Boca Juniors", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Racing Club", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Independiente", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "San Lorenzo", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Huracán", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Vélez Sarsfield", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Estudiantes", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Gimnasia", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Newell's Old Boys", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Rosario Central", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0},
-    {"nombre": "Argentinos Juniors", "pj": 0, "pg": 0, "pe": 0, "pp": 0, "puntos": 0}
-]
 
 def agregar_jugador(nombre, apellido):
     """Función corregida para agregar jugadores sin validación redundante"""
@@ -39,6 +26,26 @@ def agregar_jugador(nombre, apellido):
     }
     jugadores.append(jugador)
     print("✅ Jugador agregado correctamente.")
+def resetear_puntajes():
+    confirmacion = input("⚠️ Esto reiniciará todos los puntajes. ¿Estás seguro? (s/n): ").strip().lower()
+    if confirmacion != 's':
+        print("❌ Operación cancelada.")
+        return
+
+    with open("equipos.json", "r") as f:
+        equipos = json.load(f)
+
+    for equipo in equipos:
+        equipo["pj"] = 0
+        equipo["pg"] = 0
+        equipo["pe"] = 0
+        equipo["pp"] = 0
+        equipo["puntos"] = 0
+
+    with open("equipos.json", "w") as f:
+        json.dump(equipos, f, indent=4)
+
+    print("🔄 Puntajes reseteados.")
 
 # Generar partidos aleatorios entre equipos sin repetir
 random.seed(datetime.now().timestamp())
@@ -101,6 +108,9 @@ def simular_partidos():
         jugador['goles'] += random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
         jugador['asistencias'] += random.choices([0, 1, 2], weights=[75, 20, 5])[0]
         jugador['rojas'] += random.choices([0, 1], weights=[99, 1])[0]
+    
+    with open("equipos.json", "w") as f:
+        json.dump(equipos, f, indent=4)
     
     print("✅ Partidos simulados.\n")
 
@@ -225,11 +235,12 @@ def menu():
         print("8. Ver toda la liga (jugadores y equipos)")
         print("9. Comprar entrada")
         print("10. Salir")
+        print("11. Resetear puntajes")
 
-        opcion = input("Seleccione una opción (1-10): ")
+        opcion = input("Seleccione una opción (1-11): ")
 
-        if not opcion.isdigit() or not (1 <= int(opcion) <= 10):
-            print("❌ Opción inválida. Por favor ingrese un número del 1 al 10.")
+        if not opcion.isdigit() or not (1 <= int(opcion) <= 11):
+            print("❌ Opción inválida. Por favor ingrese un número del 1 al 11.")
             continue
 
         match opcion:
@@ -256,6 +267,8 @@ def menu():
             case '10':
                 print("👋 ¡Hasta luego!")
                 break
+            case '11':
+                resetear_puntajes()
             case _:
                 print("Opción inválida 🚫")
 
