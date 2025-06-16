@@ -3,6 +3,12 @@ from tkinter import ttk, messagebox
 import json
 import os
 import random
+import json
+with open("equipos.json", "r") as f:
+    equipos = json.load(f)
+from datetime import datetime, timedelta
+import time
+import sys
 
 EQUIPOS_FILE = 'equipos.json'
 JUGADORES_FILE = 'jugadores.json'
@@ -130,8 +136,32 @@ class LigaAppConMenu:
         self.jugadores = generar_jugadores()
         simular_partidos(self.equipos, self.jugadores)
 
-        # Mostrar tabla inicial
-        self.mostrar_tabla()
+        # Mostrar menú inicial
+        self.mostrar_menu_inicial()
+
+    def mostrar_menu_inicial(self):
+        ventana_opciones = tk.Toplevel(self.root)
+        ventana_opciones.title("Menú Inicial")
+        ventana_opciones.geometry("300x300")
+        ventana_opciones.configure(bg="#212121")
+
+        def cerrar_y_ejecutar(func):
+            ventana_opciones.destroy()
+            func()
+
+        opciones = [
+            ("Ver Tabla de Posiciones", self.mostrar_tabla),
+            ("Top 5 Goleadores", self.mostrar_top5_goleadores),
+            ("Top 5 Asistencias", self.mostrar_top5_asistencias),
+            ("Top 5 Tarjetas Rojas", self.mostrar_top5_rojas),
+            ("Simular Nueva Jornada", self.nueva_jornada),
+            ("Salir", self.root.quit)
+        ]
+
+        for texto, funcion in opciones:
+            btn = tk.Button(ventana_opciones, text=texto, command=lambda f=funcion: cerrar_y_ejecutar(f),
+                            bg="#4A90E2", fg="white", font=("Arial", 11), relief="flat", padx=10, pady=5)
+            btn.pack(pady=5, fill="x", padx=20)
 
     def limpiar_tabla(self):
         self.tree.delete(*self.tree.get_children())
