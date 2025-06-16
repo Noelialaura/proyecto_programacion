@@ -12,19 +12,49 @@ estadios = {
     "Estadio B": 45000
 }
 
-jugadores = []
 
+jugadores = []
+try:
+    with open("jugadores.json", "r") as f:
+        jugadores = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    jugadores = []
+
+# Cargar partidos desde archivo si existe
+try:
+    with open("partidos.json", "r") as f:
+        partidos = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    partidos = []
 
 def agregar_jugador(nombre, apellido):
     """Función corregida para agregar jugadores sin validación redundante"""
+    print("📋 Equipos disponibles:")
+    for i, equipo in enumerate(equipos, start=1):
+        print(f"{i}. {equipo['nombre']}")
+    try:
+        eleccion = int(input("Seleccione el número del equipo al que pertenece el jugador: "))
+        if eleccion < 1 or eleccion > len(equipos):
+            print("❌ Opción inválida.")
+            return
+        equipo_seleccionado = equipos[eleccion - 1]['nombre']
+    except ValueError:
+        print("❌ Entrada inválida.")
+        return
     jugador = {
         'nombre': nombre,
         'apellido': apellido,
+        'equipo': equipo_seleccionado,
         'goles': 0,
         'asistencias': 0,
         'rojas': 0
     }
     jugadores.append(jugador)
+    try:
+        with open("jugadores.json", "w") as f:
+            json.dump(jugadores, f, indent=4)
+    except Exception as e:
+        print(f"⚠️ Error al guardar el jugador: {e}")
     print("✅ Jugador agregado correctamente.")
 def resetear_puntajes():
     global equipos
@@ -53,7 +83,6 @@ def resetear_puntajes():
 
 # Generar partidos aleatorios entre equipos sin repetir
 random.seed(datetime.now().timestamp())
-partidos = []
 usados = set()
 fechas_base = datetime(2025, 6, 1)
 dias_disponibles = list(range(1, 31))
@@ -82,6 +111,11 @@ while len(partidos) < 6 and len(usados) < 66:
         "precio": precio,
         "entradas_vendidas": 0  # Contador de entradas vendidas
     })
+
+# Guardar los partidos generados en el archivo partidos.json
+if partidos:
+    with open("partidos.json", "w") as f:
+        json.dump(partidos, f, indent=4)
     
 def barra_de_carga(total=20, delay=0.1):
     for i in range(total + 1):
@@ -93,7 +127,11 @@ def barra_de_carga(total=20, delay=0.1):
     print("\n✅ Proceso terminado.")
 
 def simular_partidos():
+    
+    global equipos
+    
     """Función corregida para simular partidos"""
+    
     for equipo in equipos:
         resultado = random.choice(['G', 'E', 'P'])
         equipo['pj'] += 1
@@ -117,7 +155,7 @@ def simular_partidos():
         json.dump(equipos, f, indent=4)
 
     # Recargar los datos de equipos desde el archivo para reflejar los cambios en memoria
-    global equipos
+    
     with open("equipos.json", "r") as f:
         equipos = json.load(f)
 
@@ -169,6 +207,10 @@ def ver_liga_completa():
 
 def procesar_pago():
     mostrar_partidos()
+    opcion = input("\n¿Desea comprar una entrada? (s para sí, m para volver al menú): ").strip().lower()
+    if opcion != 's':
+        print("🔙 Volviendo al menú principal...")
+        return
     try:
         partido_id = int(input("Ingrese el ID del partido a pagar: "))
         partido = next((p for p in partidos if p['id'] == partido_id), None)
@@ -223,6 +265,19 @@ def procesar_pago():
                 json.dump(pagos, f, indent=4)
             
             partido['entradas_vendidas'] += cantidad
+
+            # Actualizar la lista de partidos con los datos del partido modificado
+            for i, p in enumerate(partidos):
+                if p['id'] == partido_id:
+                    partidos[i] = partido
+                    break
+
+            # Guardar la lista de partidos actualizada
+            try:
+                with open("partidos.json", "w") as f:
+                    json.dump(partidos, f, indent=4)
+            except Exception as e:
+                print(f"⚠️ Error al guardar los partidos: {e}")
             barra_de_carga()
             print(f"✔ Compra registrada correctamente. {cantidad} entrada(s) vendida(s).")
         else:

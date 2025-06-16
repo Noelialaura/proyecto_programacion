@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "fecha": "2025-06-12",
+        "estadio": "Estadio A",
+        "equipos": "Boca Juniors vs V\u00e9lez Sarsfield",
+        "capacidad": 50000,
+        "precio": 49232,
+        "entradas_vendidas": 0
+    },
+    {
+        "id": 2,
+        "fecha": "2025-06-30",
+        "estadio": "Estadio A",
+        "equipos": "Boca Juniors vs Gimnasia",
+        "capacidad": 50000,
+        "precio": 33014,
+        "entradas_vendidas": 0
+    },
+    {
+        "id": 3,
+        "fecha": "2025-06-10",
+        "estadio": "Estadio B",
+        "equipos": "V\u00e9lez Sarsfield vs Estudiantes",
+        "capacidad": 45000,
+        "precio": 21426,
+        "entradas_vendidas": 0
+    },
+    {
+        "id": 4,
+        "fecha": "2025-06-17",
+        "estadio": "Estadio A",
+        "equipos": "Newell's Old Boys vs Rosario Central",
+        "capacidad": 50000,
+        "precio": 35255,
+        "entradas_vendidas": 0
+    },
+    {
+        "id": 5,
+        "fecha": "2025-06-20",
+        "estadio": "Estadio B",
+        "equipos": "Boca Juniors vs Huracan",
+        "capacidad": 45000,
+        "precio": 22712,
+        "entradas_vendidas": 0
+    },
+    {
+        "id": 6,
+        "fecha": "2025-06-24",
+        "estadio": "Estadio B",
+        "equipos": "Gimnasia vs River Plate",
+        "capacidad": 45000,
+        "precio": 20769,
+        "entradas_vendidas": 78
+    }
+]

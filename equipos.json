@@ -1,82 +1,106 @@
 [
     {
-        "nombre": "Leones",
-        "pj": 1,
-        "pg": 0,
-        "pe": 1,
-        "pp": 0,
-        "puntos": 1
-    },
-    {
-        "nombre": "Tigres",
-        "pj": 1,
-        "pg": 1,
-        "pe": 0,
-        "pp": 0,
-        "puntos": 3
-    },
-    {
-        "nombre": "Águilas",
-        "pj": 1,
+        "nombre": "River Plate",
+        "pj": 0,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 0,
         "puntos": 0
     },
     {
-        "nombre": "Búfalos",
-        "pj": 1,
+        "nombre": "Boca Juniors",
+        "pj": 0,
         "pg": 0,
-        "pe": 1,
+        "pe": 0,
         "pp": 0,
-        "puntos": 1
+        "puntos": 0
+    },
+    {
+        "nombre": "Racing Club",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Independiente",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
     },
     {
         "nombre": "Cuervos",
-        "pj": 1,
+        "pj": 0,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 0,
         "puntos": 0
     },
     {
-        "nombre": "Panteras",
-        "pj": 1,
-        "pg": 0,
-        "pe": 1,
-        "pp": 0,
-        "puntos": 1
-    },
-    {
-        "nombre": "Toros",
-        "pj": 1,
-        "pg": 1,
-        "pe": 0,
-        "pp": 0,
-        "puntos": 3
-    },
-    {
-        "nombre": "Osos",
-        "pj": 1,
-        "pg": 0,
-        "pe": 1,
-        "pp": 0,
-        "puntos": 1
-    },
-    {
-        "nombre": "Lobos",
-        "pj": 1,
-        "pg": 1,
-        "pe": 0,
-        "pp": 0,
-        "puntos": 3
-    },
-    {
-        "nombre": "Halcones",
-        "pj": 1,
+        "nombre": "San Lorenzo",
+        "pj": 0,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Huracan",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "V\u00e9lez Sarsfield",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Estudiantes",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Gimnasia",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Newell's Old Boys",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Rosario Central",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "puntos": 0
+    },
+    {
+        "nombre": "Argentinos Juniors",
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
         "puntos": 0
     }
 ]
