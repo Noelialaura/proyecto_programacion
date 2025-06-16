@@ -12,7 +12,6 @@ estadios = {
     "Estadio B": 45000
 }
 
-
 jugadores = []
 try:
     with open("jugadores.json", "r") as f:
@@ -81,41 +80,42 @@ def resetear_puntajes():
 
     print("🔄 Puntajes reseteados.")
 
-# Generar partidos aleatorios entre equipos sin repetir
-random.seed(datetime.now().timestamp())
-usados = set()
-fechas_base = datetime(2025, 6, 1)
-dias_disponibles = list(range(1, 31))
+if not partidos:
+    # Generar partidos aleatorios entre equipos sin repetir
+    random.seed(datetime.now().timestamp())
+    usados = set()
+    fechas_base = datetime(2025, 6, 1)
+    dias_disponibles = list(range(1, 31))
 
-while len(partidos) < 6 and len(usados) < 66:
-    eq1, eq2 = random.sample(equipos, 2)
-    key = tuple(sorted([eq1['nombre'], eq2['nombre']]))
-    if key in usados:
-        continue
-    usados.add(key)
-    
-    if not dias_disponibles:
-        dias_disponibles = list(range(1, 31))
-    
-    dia = dias_disponibles.pop(random.randint(0, len(dias_disponibles)-1))
-    fecha = (fechas_base + timedelta(days=dia)).strftime("%Y-%m-%d")
-    estadio = random.choice(list(estadios.keys()))
-    precio = random.randint(20000, 50000)
-    
-    partidos.append({
-        "id": len(partidos) + 1,
-        "fecha": fecha,
-        "estadio": estadio,
-        "equipos": f"{eq1['nombre']} vs {eq2['nombre']}",
-        "capacidad": estadios[estadio],
-        "precio": precio,
-        "entradas_vendidas": 0  # Contador de entradas vendidas
-    })
+    while len(partidos) < 6 and len(usados) < 66:
+        eq1, eq2 = random.sample(equipos, 2)
+        key = tuple(sorted([eq1['nombre'], eq2['nombre']]))
+        if key in usados:
+            continue
+        usados.add(key)
+        
+        if not dias_disponibles:
+            dias_disponibles = list(range(1, 31))
+        
+        dia = dias_disponibles.pop(random.randint(0, len(dias_disponibles)-1))
+        fecha = (fechas_base + timedelta(days=dia)).strftime("%Y-%m-%d")
+        estadio = random.choice(list(estadios.keys()))
+        precio = random.randint(20000, 50000)
+        
+        partidos.append({
+            "id": len(partidos) + 1,
+            "fecha": fecha,
+            "estadio": estadio,
+            "equipos": f"{eq1['nombre']} vs {eq2['nombre']}",
+            "capacidad": estadios[estadio],
+            "precio": precio,
+            "entradas_vendidas": 0  # Contador de entradas vendidas
+        })
 
-# Guardar los partidos generados en el archivo partidos.json
-if partidos:
-    with open("partidos.json", "w") as f:
-        json.dump(partidos, f, indent=4)
+    # Guardar los partidos generados en el archivo partidos.json
+    if partidos:
+        with open("partidos.json", "w") as f:
+            json.dump(partidos, f, indent=4)
     
 def barra_de_carga(total=20, delay=0.1):
     for i in range(total + 1):
@@ -127,11 +127,9 @@ def barra_de_carga(total=20, delay=0.1):
     print("\n✅ Proceso terminado.")
 
 def simular_partidos():
-    
     global equipos
-    
     """Función corregida para simular partidos"""
-    
+
     for equipo in equipos:
         resultado = random.choice(['G', 'E', 'P'])
         equipo['pj'] += 1
@@ -144,18 +142,25 @@ def simular_partidos():
             equipo['puntos'] += 1
         elif resultado == 'P':
             equipo['pp'] += 1
-    
+
+    # Aviso si no hay jugadores cargados
+    if not jugadores:
+        print("⚠️ No hay jugadores cargados. Se simularán solo los equipos.")
+
     # Simular estadísticas de jugadores
     for jugador in jugadores:
         jugador['goles'] += random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
         jugador['asistencias'] += random.choices([0, 1, 2], weights=[75, 20, 5])[0]
         jugador['rojas'] += random.choices([0, 1], weights=[99, 1])[0]
-    
+
+    # Guardar cambios en los jugadores
+    with open("jugadores.json", "w") as f:
+        json.dump(jugadores, f, indent=4)
+
     with open("equipos.json", "w") as f:
         json.dump(equipos, f, indent=4)
 
     # Recargar los datos de equipos desde el archivo para reflejar los cambios en memoria
-    
     with open("equipos.json", "r") as f:
         equipos = json.load(f)
 
@@ -188,7 +193,7 @@ def mostrar_top5_consola(clave, titulo, emoji, unidad):
     
     ordenado = sorted(jugadores, key=lambda x: x.get(clave, 0), reverse=True)
     for i, j in enumerate(ordenado[:5], start=1):
-        print(f"{i}. {j['nombre']} {j['apellido']} - {j.get(clave, 0)} {unidad}")
+        print(f"{i}. {j['nombre']} {j['apellido']} ({j['equipo']}) - {j.get(clave, 0)} {unidad}")
 
 def ver_liga_completa():
     print("\n📋 TODOS LOS EQUIPOS:")
