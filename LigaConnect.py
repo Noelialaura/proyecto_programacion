@@ -1,6 +1,6 @@
 import random
 import json
-with open("equipos.json", "r") as f:
+with open("equipos.json", "r", encoding="utf-8") as f:
     equipos = json.load(f)
 from datetime import datetime, timedelta
 import time
@@ -14,14 +14,14 @@ estadios = {
 
 jugadores = []
 try:
-    with open("jugadores.json", "r") as f:
+    with open("jugadores.json", "r", encoding="utf-8") as f:
         jugadores = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     jugadores = []
 
 # Cargar partidos desde archivo si existe
 try:
-    with open("partidos.json", "r") as f:
+    with open("partidos.json", "r", encoding="utf-8") as f:
         partidos = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     partidos = []
@@ -50,7 +50,7 @@ def agregar_jugador(nombre, apellido):
     }
     jugadores.append(jugador)
     try:
-        with open("jugadores.json", "w") as f:
+        with open("jugadores.json", "w", encoding="utf-8") as f:
             json.dump(jugadores, f, indent=4)
     except Exception as e:
         print(f"⚠️ Error al guardar el jugador: {e}")
@@ -62,7 +62,7 @@ def resetear_puntajes():
         print("❌ Operación cancelada.")
         return
 
-    with open("equipos.json", "r") as f:
+    with open("equipos.json", "r", encoding="utf-8") as f:
         equipos = json.load(f)
 
     for equipo in equipos:
@@ -72,10 +72,10 @@ def resetear_puntajes():
         equipo["pp"] = 0
         equipo["puntos"] = 0
 
-    with open("equipos.json", "w") as f:
+    with open("equipos.json", "w", encoding="utf-8") as f:
         json.dump(equipos, f, indent=4)
 
-    with open("equipos.json", "r") as f:
+    with open("equipos.json", "r", encoding="utf-8") as f:
         equipos = json.load(f)
 
     print("🔄 Puntajes reseteados.")
@@ -114,7 +114,7 @@ if not partidos:
 
     # Guardar los partidos generados en el archivo partidos.json
     if partidos:
-        with open("partidos.json", "w") as f:
+        with open("partidos.json", "w", encoding="utf-8") as f:
             json.dump(partidos, f, indent=4)
     
 def barra_de_carga(total=20, delay=0.1):
@@ -154,14 +154,14 @@ def simular_partidos():
         jugador['rojas'] += random.choices([0, 1], weights=[99, 1])[0]
 
     # Guardar cambios en los jugadores
-    with open("jugadores.json", "w") as f:
+    with open("jugadores.json", "w", encoding="utf-8") as f:
         json.dump(jugadores, f, indent=4)
 
-    with open("equipos.json", "w") as f:
+    with open("equipos.json", "w", encoding="utf-8") as f:
         json.dump(equipos, f, indent=4)
 
     # Recargar los datos de equipos desde el archivo para reflejar los cambios en memoria
-    with open("equipos.json", "r") as f:
+    with open("equipos.json", "r", encoding="utf-8") as f:
         equipos = json.load(f)
 
     print("✅ Partidos simulados.\n")
@@ -260,13 +260,13 @@ def procesar_pago():
             }
             
             try:
-                with open("pagos.json", "r") as f:
+                with open("pagos.json", "r", encoding="utf-8") as f:
                     pagos = json.load(f)
             except (FileNotFoundError, json.JSONDecodeError):
                 pagos = []
             
             pagos.append(entrada)
-            with open("pagos.json", "w") as f:
+            with open("pagos.json", "w", encoding="utf-8") as f:
                 json.dump(pagos, f, indent=4)
             
             partido['entradas_vendidas'] += cantidad
@@ -279,7 +279,7 @@ def procesar_pago():
 
             # Guardar la lista de partidos actualizada
             try:
-                with open("partidos.json", "w") as f:
+                with open("partidos.json", "w", encoding="utf-8") as f:
                     json.dump(partidos, f, indent=4)
             except Exception as e:
                 print(f"⚠️ Error al guardar los partidos: {e}")

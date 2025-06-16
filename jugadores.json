@@ -1,49 +1,290 @@
 [
-    {"nombre": "Franco", "apellido": "Armani", "equipo": "River Plate", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Milton", "apellido": "Casco", "equipo": "River Plate", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Esequiel", "apellido": "Barco", "equipo": "River Plate", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Sergio", "apellido": "Romero", "equipo": "Boca Juniors", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Marcos", "apellido": "Rojo", "equipo": "Boca Juniors", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Edinson", "apellido": "Cavani", "equipo": "Boca Juniors", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Gabriel", "apellido": "Arias", "equipo": "Racing Club", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Gonzalo", "apellido": "Piovi", "equipo": "Racing Club", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Roger", "apellido": "Martínez", "equipo": "Racing Club", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Rodrigo", "apellido": "Rey", "equipo": "Independiente", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Ayrton", "apellido": "Costa", "equipo": "Independiente", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Gabriel", "apellido": "Ávalos", "equipo": "Independiente", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Facundo", "apellido": "Altamirano", "equipo": "San Lorenzo", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Gastón", "apellido": "Hernández", "equipo": "San Lorenzo", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Adam", "apellido": "Bareiro", "equipo": "San Lorenzo", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Lucas", "apellido": "Chaves", "equipo": "Huracán", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Guillermo", "apellido": "Soto", "equipo": "Huracán", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Ignacio", "apellido": "Pussetto", "equipo": "Huracán", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Tomás", "apellido": "Marchiori", "equipo": "Velez Sarsfield", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Valentín", "apellido": "Gómez", "equipo": "Velez Sarsfield", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Claudio", "apellido": "Aquino", "equipo": "Velez Sarsfield", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Mariano", "apellido": "Andújar", "equipo": "Estudiantes", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Zaid", "apellido": "Romero", "equipo": "Estudiantes", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Mauro", "apellido": "Boselli", "equipo": "Estudiantes", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Nelson", "apellido": "Insfrán", "equipo": "Gimnasia", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Bruno", "apellido": "Palazzo", "equipo": "Gimnasia", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Cristian", "apellido": "Tarragona", "equipo": "Gimnasia", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Lucas", "apellido": "Hoyos", "equipo": "Newell's Old Boys", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Ángelo", "apellido": "Martino", "equipo": "Newell's Old Boys", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Brian", "apellido": "Aguirre", "equipo": "Newell's Old Boys", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Jorge", "apellido": "Broun", "equipo": "Rosario Central", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Carlos", "apellido": "Quintana", "equipo": "Rosario Central", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Jaminton", "apellido": "Campaz", "equipo": "Rosario Central", "goles": 0, "asistencias": 0, "rojas": 0},
-  
-    {"nombre": "Alexis", "apellido": "Martín Arias", "equipo": "Argentinos Juniors", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Miguel", "apellido": "Torrén", "equipo": "Argentinos Juniors", "goles": 0, "asistencias": 0, "rojas": 0},
-    {"nombre": "Alan", "apellido": "Lescano", "equipo": "Argentinos Juniors", "goles": 0, "asistencias": 0, "rojas": 0}
-  ]
+    {
+        "nombre": "Franco",
+        "apellido": "Armani",
+        "equipo": "River Plate",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Milton",
+        "apellido": "Casco",
+        "equipo": "River Plate",
+        "goles": 0,
+        "asistencias": 2,
+        "rojas": 0
+    },
+    {
+        "nombre": "Esequiel",
+        "apellido": "Barco",
+        "equipo": "River Plate",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Romero",
+        "equipo": "Boca Juniors",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Marcos",
+        "apellido": "Rojo",
+        "equipo": "Boca Juniors",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Edinson",
+        "apellido": "Cavani",
+        "equipo": "Boca Juniors",
+        "goles": 3,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Gabriel",
+        "apellido": "Arias",
+        "equipo": "Racing Club",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Gonzalo",
+        "apellido": "Piovi",
+        "equipo": "Racing Club",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Roger",
+        "apellido": "Mart\u00ednez",
+        "equipo": "Racing Club",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Rodrigo",
+        "apellido": "Rey",
+        "equipo": "Independiente",
+        "goles": 0,
+        "asistencias": 2,
+        "rojas": 0
+    },
+    {
+        "nombre": "Ayrton",
+        "apellido": "Costa",
+        "equipo": "Independiente",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Gabriel",
+        "apellido": "\u00c1valos",
+        "equipo": "Independiente",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Facundo",
+        "apellido": "Altamirano",
+        "equipo": "San Lorenzo",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Gast\u00f3n",
+        "apellido": "Hern\u00e1ndez",
+        "equipo": "San Lorenzo",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Adam",
+        "apellido": "Bareiro",
+        "equipo": "San Lorenzo",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Lucas",
+        "apellido": "Chaves",
+        "equipo": "Hurac\u00e1n",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Guillermo",
+        "apellido": "Soto",
+        "equipo": "Hurac\u00e1n",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Ignacio",
+        "apellido": "Pussetto",
+        "equipo": "Hurac\u00e1n",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Tom\u00e1s",
+        "apellido": "Marchiori",
+        "equipo": "Velez Sarsfield",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Valent\u00edn",
+        "apellido": "G\u00f3mez",
+        "equipo": "Velez Sarsfield",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Claudio",
+        "apellido": "Aquino",
+        "equipo": "Velez Sarsfield",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Mariano",
+        "apellido": "And\u00fajar",
+        "equipo": "Estudiantes",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Zaid",
+        "apellido": "Romero",
+        "equipo": "Estudiantes",
+        "goles": 0,
+        "asistencias": 2,
+        "rojas": 0
+    },
+    {
+        "nombre": "Mauro",
+        "apellido": "Boselli",
+        "equipo": "Estudiantes",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Nelson",
+        "apellido": "Insfr\u00e1n",
+        "equipo": "Gimnasia",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Bruno",
+        "apellido": "Palazzo",
+        "equipo": "Gimnasia",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Cristian",
+        "apellido": "Tarragona",
+        "equipo": "Gimnasia",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Lucas",
+        "apellido": "Hoyos",
+        "equipo": "Newell's Old Boys",
+        "goles": 0,
+        "asistencias": 2,
+        "rojas": 0
+    },
+    {
+        "nombre": "\u00c1ngelo",
+        "apellido": "Martino",
+        "equipo": "Newell's Old Boys",
+        "goles": 1,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Brian",
+        "apellido": "Aguirre",
+        "equipo": "Newell's Old Boys",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Jorge",
+        "apellido": "Broun",
+        "equipo": "Rosario Central",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Carlos",
+        "apellido": "Quintana",
+        "equipo": "Rosario Central",
+        "goles": 2,
+        "asistencias": 0,
+        "rojas": 0
+    },
+    {
+        "nombre": "Jaminton",
+        "apellido": "Campaz",
+        "equipo": "Rosario Central",
+        "goles": 2,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Alexis",
+        "apellido": "Mart\u00edn Arias",
+        "equipo": "Argentinos Juniors",
+        "goles": 1,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Miguel",
+        "apellido": "Torr\u00e9n",
+        "equipo": "Argentinos Juniors",
+        "goles": 0,
+        "asistencias": 1,
+        "rojas": 0
+    },
+    {
+        "nombre": "Alan",
+        "apellido": "Lescano",
+        "equipo": "Argentinos Juniors",
+        "goles": 0,
+        "asistencias": 0,
+        "rojas": 0
+    }
+]
