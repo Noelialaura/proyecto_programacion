@@ -27,6 +27,27 @@ except (FileNotFoundError, json.JSONDecodeError):
     partidos = []
 
 def agregar_jugador(nombre, apellido):
+    while True:
+        try:
+            int(nombre)
+            raise ValueError
+        except ValueError:
+            if any(char.isdigit() for char in nombre):
+                print("❌ El nombre no debe contener números.")
+                nombre = input("Ingrese un nombre: ")
+            else:
+                break
+    while True:
+        try:
+            int(apellido)
+            raise ValueError
+        except ValueError:
+            if any(char.isdigit() for char in apellido):
+                print("❌ El apellido no debe contener números.")
+                apellido = input("Ingrese un apellido : ")
+            else:
+                break
+
     """Función corregida para agregar jugadores sin validación redundante"""
     print("📋 Equipos disponibles:")
     for i, equipo in enumerate(equipos, start=1):
