@@ -278,37 +278,5 @@
         "goles": 0,
         "asistencias": 1,
         "rojas": 0
-    },
-    {
-        "nombre": "Alan",
-        "apellido": "Lescano",
-        "equipo": "Argentinos Juniors",
-        "goles": 0,
-        "asistencias": 0,
-        "rojas": 0
-    },
-    {
-        "nombre": "9",
-        "apellido": "9",
-        "equipo": "River Plate",
-        "goles": 0,
-        "asistencias": 0,
-        "rojas": 0
-    },
-    {
-        "nombre": "d",
-        "apellido": "d",
-        "equipo": "River Plate",
-        "goles": 0,
-        "asistencias": 0,
-        "rojas": 0
-    },
-    {
-        "nombre": "diego",
-        "apellido": "maradona",
-        "equipo": "Gimnasia",
-        "goles": 0,
-        "asistencias": 0,
-        "rojas": 0
-    }
+    } 
 ]
