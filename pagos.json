@@ -1,54 +1,11 @@
 [
     {
-        "cliente": "juan",
-        "partido": "Argentinos Juniors vs V\u00e9lez Sarsfield",
-        "estadio": "Estadio B",
-        "fecha": "2025-06-13",
-        "cantidad": 1,
-        "precio_unitario": 46195,
-        "total": 46195
-    },
-    {
-        "cliente": "esteban",
-        "partido": "Gimnasia vs River Plate",
-        "estadio": "Estadio B",
-
-        "fecha": "2025-06-24",
-        "cantidad": 58,
-        "precio_unitario": 20769,
-        "total": 1204602
-    },
-    {
-        "cliente": "Juansito",
-        "partido": "Gimnasia vs River Plate",
-        "estadio": "Estadio B",
-        "fecha": "2025-06-24",
-        "cantidad": 20,
-        "precio_unitario": 20769,
-        "total": 415380
-
-        "fecha": "2025-06-08",
-        "cantidad": 25,
-        "precio_unitario": 35698,
-        "total": 892450
-    },
-    {
-        "cliente": "juan",
-        "partido": "Gimnasia vs Racing Club",
+        "cliente": "Mile",
+        "partido": "Boca Juniors vs V\u00e9lez Sarsfield",
         "estadio": "Estadio A",
-        "fecha": "2025-06-09",
-        "cantidad": 3,
-        "precio_unitario": 43228,
-        "total": 129684
-    },
-    {
-        "cliente": "Noe",
-        "partido": "Estudiantes vs Boca Juniors",
-        "estadio": "Estadio A",
-        "fecha": "2025-06-10",
-        "cantidad": 60,
-        "precio_unitario": 27901,
-        "total": 1674060
-
+        "fecha": "2025-06-12",
+        "cantidad": 2,
+        "precio_unitario": 49232,
+        "total": 98464
     }
 ]
