@@ -1,10 +1,11 @@
+#Llamada de bibliotecas
 import random
 import json
 with open("equipos.json", "r", encoding="utf-8") as f:
     equipos = json.load(f)
 from datetime import datetime, timedelta
 import time
-import sys
+import sys #Permite el uso de str
 
 # Inicialización de estructuras de datos
 estadios = {
@@ -14,9 +15,9 @@ estadios = {
 
 jugadores = []
 try:
-    with open("jugadores.json", "r", encoding="utf-8") as f:
+    with open("jugadores.json", "r", encoding="utf-8") as f: #Abre archivo precargado de jugadores
         jugadores = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError):
+except (FileNotFoundError, json.JSONDecodeError): #Excepción si no encuentra el archivo
     jugadores = []
 
 # Cargar partidos desde archivo si existe
@@ -25,6 +26,9 @@ try:
         partidos = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     partidos = []
+
+
+#Excepciones en carga de jugador
 
 def agregar_jugador(nombre, apellido):
     while True:
@@ -48,7 +52,7 @@ def agregar_jugador(nombre, apellido):
             else:
                 break
 
-    """Función corregida para agregar jugadores sin validación redundante"""
+
     print("📋 Equipos disponibles:")
     for i, equipo in enumerate(equipos, start=1):
         print(f"{i}. {equipo['nombre']}")
@@ -76,9 +80,11 @@ def agregar_jugador(nombre, apellido):
     except Exception as e:
         print(f"⚠️ Error al guardar el jugador: {e}")
     print("✅ Jugador agregado correctamente.")
+
+
 def resetear_puntajes():
     global equipos
-    confirmacion = input("⚠️ Esto reiniciará todos los puntajes. ¿Estás seguro? (s/n): ").strip().lower()
+    confirmacion = input("⚠️ Esto reiniciará todos los puntajes. ¿Estás seguro? (s/n): ").strip().lower() #Evita errores (permite mayus o min)
     if confirmacion != 's':
         print("❌ Operación cancelada.")
         return
@@ -142,17 +148,18 @@ def barra_de_carga(total=20, delay=0.1):
     for i in range(total + 1):
         porcentaje = int((i / total) * 100)
         barra = '=' * i + ' ' * (total - i)
-        sys.stdout.write(f'\r[{barra}] {porcentaje}%')
+        sys.stdout.write(f'\r[{barra}] {porcentaje}%') #Barra de carga al comprar entrada
         sys.stdout.flush()
         time.sleep(delay)
     print("\n✅ Proceso terminado.")
 
+
+#Función que simula partidos
 def simular_partidos():
     global equipos
-    """Función corregida para simular partidos"""
-
+    
     for equipo in equipos:
-        resultado = random.choice(['G', 'E', 'P'])
+        resultado = random.choice(['G', 'E', 'P']) #Ganados, empatados y perdidos
         equipo['pj'] += 1
         
         if resultado == 'G':
@@ -170,7 +177,7 @@ def simular_partidos():
 
     # Simular estadísticas de jugadores
     for jugador in jugadores:
-        jugador['goles'] += random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0]
+        jugador['goles'] += random.choices([0, 1, 2, 3], weights=[70, 20, 8, 2])[0] #weights para calcular probabilidades
         jugador['asistencias'] += random.choices([0, 1, 2], weights=[75, 20, 5])[0]
         jugador['rojas'] += random.choices([0, 1], weights=[99, 1])[0]
 
@@ -190,7 +197,7 @@ def simular_partidos():
 def mostrar_partidos():
     print("\n=== Lista de Partidos Disponibles ===")
     for p in partidos:
-        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y')
+        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y') #Selección de fechas
         print(f"ID: {p['id']}")
         print(f"Fecha: {fecha_fmt}")
         print(f"Estadio: {p['estadio']}")
@@ -200,13 +207,15 @@ def mostrar_partidos():
         print(f"Precio: ${p['precio']:,} ARS")
         print("---------------------------")
 
+#Funciones para imprimir datos
+
 def mostrar_tabla():
     print("\n🏆 Tabla de posiciones:")
     tabla = sorted(equipos, key=lambda x: x['puntos'], reverse=True)
     for i, e in enumerate(tabla, start=1):
         print(f"{i}. {e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
 
-def mostrar_top5_consola(clave, titulo, emoji, unidad):
+def mostrar_top5_consola(clave, titulo, emoji, unidad): #Top 5 (Goles, asistencias y tarjetas rojas)
     print(f"\n{emoji} Ranking De {titulo}:")
     if not jugadores:
         print("No hay jugadores cargados.")
@@ -231,9 +240,10 @@ def ver_liga_completa():
         for j in jugadores:
             print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
 
+#Función para procesar pagos de las entradas
 def procesar_pago():
     mostrar_partidos()
-    opcion = input("\n¿Desea comprar una entrada? (s para sí, m para volver al menú): ").strip().lower()
+    opcion = input("\n¿Desea comprar una entrada? (s para sí, m para volver al menú): ").strip().lower() #Evita errores (permite mayus o min)
     if opcion != 's':
         print("🔙 Volviendo al menú principal...")
         return
@@ -279,9 +289,11 @@ def procesar_pago():
                 "precio_unitario": partido['precio'],
                 "total": total
             }
+
+            #Excepción para indicar cantidad de entradas compradas
             
             try:
-                with open("pagos.json", "r", encoding="utf-8") as f:
+                with open("pagos.json", "r", encoding="utf-8") as f: #Archivo que registra los pagos
                     pagos = json.load(f)
             except (FileNotFoundError, json.JSONDecodeError):
                 pagos = []
@@ -312,6 +324,8 @@ def procesar_pago():
     except ValueError:
         print("❌ Entrada inválida. Por favor ingrese un número.")
 
+#Programa principal con función menú 
+
 def menu():
     while True:
         print("\n--- Menú Principal ---")
@@ -324,8 +338,8 @@ def menu():
         print("7. Top 5 tarjetas rojas")
         print("8. Ver toda la liga (jugadores y equipos)")
         print("9. Comprar entrada")
-        print("10. Salir")
-        print("11. Resetear puntajes")
+        print("10. Resetear puntajes")
+        print("11. Salir")
 
         opcion = input("Seleccione una opción (1-11): ")
 
@@ -333,6 +347,7 @@ def menu():
             print("❌ Opción inválida. Por favor ingrese un número del 1 al 11.")
             continue
 
+        #Aplicación de case para optimizar el código
         match opcion:
             case '1':
                 nombre = input("Nombre del jugador: ")
@@ -355,10 +370,10 @@ def menu():
             case '9':
                 procesar_pago()
             case '10':
+                 resetear_puntajes()
+            case '11':
                 print("👋 ¡Hasta luego!")
                 break
-            case '11':
-                resetear_puntajes()
             case _:
                 print("Opción inválida 🚫")
 

@@ -7,5 +7,14 @@
         "cantidad": 2,
         "precio_unitario": 49232,
         "total": 98464
+    },
+    {
+        "cliente": "mile",
+        "partido": "Boca Juniors vs Gimnasia",
+        "estadio": "Estadio A",
+        "fecha": "2025-06-30",
+        "cantidad": 4,
+        "precio_unitario": 33014,
+        "total": 132056
     }
 ]
