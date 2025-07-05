@@ -195,26 +195,29 @@ def simular_partidos():
     print("✅ Partidos simulados.\n")
 
 def mostrar_partidos():
+    encabezado = f"{'ID':<3}| {'Fecha':<12}| {'Estadio':<10}| {'Equipos':<25}| {'Vendidas':<8}| {'Precio':<10}"
+    separador = "-" * len(encabezado)
     resultado = "\n=== Lista de Partidos Disponibles ===\n"
+    resultado += encabezado + "\n" + separador + "\n"
     for p in partidos:
-        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y')
-        resultado += f"ID: {p['id']}\n"
-        resultado += f"Fecha: {fecha_fmt}\n"
-        resultado += f"Estadio: {p['estadio']}\n"
-        resultado += f"Equipos: {p['equipos']}\n"
-        resultado += f"Capacidad: {p['capacidad']:,} personas\n"
-        resultado += f"Entradas vendidas: {p['entradas_vendidas']}\n"
-        resultado += f"Precio: ${p['precio']:,} ARS\n"
-        resultado += "---------------------------\n"
+        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d/%m/%Y')
+        resultado += (
+            f"{p['id']:<3}| {fecha_fmt:<12}| {p['estadio']:<10}| {p['equipos']:<25}| {p['entradas_vendidas']:<8}| ${p['precio']:>9,}\n"
+        )
     return resultado
 
 #Funciones para imprimir datos
 
 def mostrar_tabla():
+    encabezado = f"{'Pos':<4}| {'Equipo':<20}| {'Pts':<4}| {'PJ':<3}| {'PG':<3}| {'PE':<3}| {'PP':<3}"
+    separador = "-" * len(encabezado)
     resultado = "\n🏆 Tabla de posiciones:\n"
+    resultado += encabezado + "\n" + separador + "\n"
     tabla = sorted(equipos, key=lambda x: x['puntos'], reverse=True)
     for i, e in enumerate(tabla, start=1):
-        resultado += f"{i}. {e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})\n"
+        resultado += (
+            f"{i:<4}| {e['nombre']:<20}| {e['puntos']:<4}| {e['pj']:<3}| {e['pg']:<3}| {e['pe']:<3}| {e['pp']:<3}\n"
+        )
     return resultado
 
 def mostrar_top5_consola(clave, titulo, emoji, unidad):
@@ -222,10 +225,14 @@ def mostrar_top5_consola(clave, titulo, emoji, unidad):
     if not jugadores:
         resultado += "No hay jugadores cargados.\n"
         return resultado
-    
+    encabezado = f"{'Pos':<4}| {'Nombre':<20}| {'Equipo':<15}| {unidad.capitalize():<8}"
+    separador = "-" * len(encabezado)
+    resultado += encabezado + "\n" + separador + "\n"
     ordenado = sorted(jugadores, key=lambda x: x.get(clave, 0), reverse=True)
     for i, j in enumerate(ordenado[:5], start=1):
-        resultado += f"{i}. {j['nombre']} {j['apellido']} ({j['equipo']}) - {j.get(clave,0)} {unidad}\n"
+        resultado += (
+            f"{i:<4}| {j['nombre']} {j['apellido']:<18}| {j['equipo']:<15}| {j.get(clave,0):<8}\n"
+        )
     return resultado
 
 def ver_liga_completa():
@@ -233,15 +240,20 @@ def ver_liga_completa():
     if not equipos:
         resultado += "No hay equipos cargados.\n"
     else:
+        encabezado = f"{'Equipo':<20}| {'PJ':<3}| {'PG':<3}| {'PE':<3}| {'PP':<3}| {'Pts':<4}"
+        separador = "-" * len(encabezado)
+        resultado += encabezado + "\n" + separador + "\n"
         for e in equipos:
-            resultado += f"{e['nombre']} - PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']}, Puntos: {e['puntos']}\n"
-    
+            resultado += f"{e['nombre']:<20}| {e['pj']:<3}| {e['pg']:<3}| {e['pe']:<3}| {e['pp']:<3}| {e['puntos']:<4}\n"
     resultado += "\n👥 TODOS LOS JUGADORES:\n"
     if not jugadores:
         resultado += "No hay jugadores cargados.\n"
     else:
+        encabezado = f"{'Nombre':<20}| {'Equipo':<15}| {'Goles':<5}| {'Asist':<5}| {'Rojas':<5}"
+        separador = "-" * len(encabezado)
+        resultado += encabezado + "\n" + separador + "\n"
         for j in jugadores:
-            resultado += f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}\n"
+            resultado += f"{j['nombre']} {j['apellido']:<18}| {j['equipo']:<15}| {j['goles']:<5}| {j['asistencias']:<5}| {j['rojas']:<5}\n"
     return resultado
 
 #Función para procesar pagos de las entradas

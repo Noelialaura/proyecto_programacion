@@ -64,42 +64,65 @@ def mostrar_partidos():
         print(f"Precio: ${p['precio']:,} CLP")
         print("---------------------------")
 
-def procesar_pago():
-    mostrar_partidos()
-    try:
-        partido_id = int(input("Ingrese el ID del partido a pagar: "))
-        partido = next((p for p in partidos if p['id'] == partido_id), None)
-        if partido:
-            print(f"Procesando pago para: {partido['equipos']}")
-            print(f"Estadio: {partido['estadio']}, Fecha: {partido['fecha']}")
-            print(f"Precio: ${partido['precio']:,} CLP")
-            nombre = input("Nombre del cliente: ")
-            confirmacion = input("¿Confirmar pago? (s/n): ").strip().lower()
-            if confirmacion == 's':
-                entrada = {
-                    "cliente": nombre,
-                    "partido": partido['equipos'],
-                    "estadio": partido['estadio'],
-                    "fecha": partido['fecha'],
-                    "precio": partido['precio']
-                }
-                try:
-                    with open("pagos.json", "r") as f:
-                        pagos = json.load(f)
-                except (FileNotFoundError, json.JSONDecodeError):
-                    pagos = []
-                pagos.append(entrada)
-                with open("pagos.json", "w") as f:
-                    json.dump(pagos, f, indent=4)
-                estadios[partido['estadio']] -= 1
-                barra_de_carga()
-                print("✔ Pago registrado correctamente.")
-            else:
-                print("❌ Pago cancelado.")
+import curses
+
+def procesar_pago(stdscr):
+    stdscr.clear()
+    stdscr.addstr("=== Lista de Partidos Disponibles ===\n")
+    for p in partidos:
+        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y')
+        stdscr.addstr(f"ID: {p['id']} | {p['equipos']} | {fecha_fmt} | {p['estadio']} | ${p['precio']:,} CLP\n")
+    stdscr.addstr("\nIngrese el ID del partido a pagar: ")
+    stdscr.refresh()
+    partido_id = stdscr.getstr().decode("utf-8").strip()
+    if not partido_id.isdigit():
+        stdscr.addstr("❌ Entrada inválida. Presione una tecla para volver.")
+        stdscr.getch()
+        return
+    partido = next((p for p in partidos if p['id'] == int(partido_id)), None)
+    if partido:
+        stdscr.clear()
+        stdscr.addstr(f"Procesando pago para: {partido['equipos']}\n")
+        stdscr.addstr(f"Estadio: {partido['estadio']}, Fecha: {partido['fecha']}\n")
+        stdscr.addstr(f"Precio: ${partido['precio']:,} CLP\n")
+        stdscr.addstr("\nNombre del cliente: ")
+        stdscr.refresh()
+        nombre = stdscr.getstr().decode("utf-8").strip()
+        stdscr.addstr("¿Confirmar pago? (s/n): ")
+        stdscr.refresh()
+        confirmacion = stdscr.getstr().decode("utf-8").strip().lower()
+        if confirmacion == 's':
+            entrada = {
+                "cliente": nombre,
+                "partido": partido['equipos'],
+                "estadio": partido['estadio'],
+                "fecha": partido['fecha'],
+                "precio": partido['precio']
+            }
+            try:
+                with open("pagos.json", "r") as f:
+                    pagos = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                pagos = []
+            pagos.append(entrada)
+            with open("pagos.json", "w") as f:
+                json.dump(pagos, f, indent=4)
+            estadios[partido['estadio']] -= 1
+            # Barra de carga
+            for i in range(21):
+                porcentaje = int((i/20)*100)
+                barra = '='*i + ' '*(20 - i)
+                stdscr.addstr(8,0,f'[{barra}] {porcentaje}%')
+                stdscr.refresh()
+                time.sleep(0.1)
+            stdscr.addstr("\n✔ Pago registrado correctamente. Presione una tecla para continuar.")
+            stdscr.getch()
         else:
-            print("❌ Partido no encontrado.")
-    except ValueError:
-        print("❌ Entrada inválida.")
+            stdscr.addstr("❌ Pago cancelado. Presione una tecla para volver.")
+            stdscr.getch()
+    else:
+        stdscr.addstr("❌ Partido no encontrado. Presione una tecla para volver.")
+        stdscr.getch()
 
 def menu():
     while True:
@@ -136,7 +159,7 @@ def menu():
             case '8':
                 print("[Funcionalidad pendiente: Ver toda la liga]")
             case '9':
-                procesar_pago()
+                curses.wrapper(procesar_pago)
             case '10':
                 mostrar_partidos()
             case '11':

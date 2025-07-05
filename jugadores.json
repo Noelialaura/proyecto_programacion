@@ -3,15 +3,15 @@
         "nombre": "Franco",
         "apellido": "Armani",
         "equipo": "River Plate",
-        "goles": 3,
-        "asistencias": 0,
+        "goles": 6,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Milton",
         "apellido": "Casco",
         "equipo": "River Plate",
-        "goles": 0,
+        "goles": 1,
         "asistencias": 2,
         "rojas": 0
     },
@@ -19,8 +19,8 @@
         "nombre": "Esequiel",
         "apellido": "Barco",
         "equipo": "River Plate",
-        "goles": 2,
-        "asistencias": 2,
+        "goles": 4,
+        "asistencias": 3,
         "rojas": 0
     },
     {
@@ -44,31 +44,31 @@
         "apellido": "Cavani",
         "equipo": "Boca Juniors",
         "goles": 4,
-        "asistencias": 0,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Gabriel",
         "apellido": "Arias",
         "equipo": "Racing Club",
-        "goles": 1,
-        "asistencias": 2,
-        "rojas": 0
+        "goles": 4,
+        "asistencias": 4,
+        "rojas": 1
     },
     {
         "nombre": "Gonzalo",
         "apellido": "Piovi",
         "equipo": "Racing Club",
-        "goles": 1,
-        "asistencias": 0,
+        "goles": 3,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Roger",
         "apellido": "Mart\u00ednez",
         "equipo": "Racing Club",
-        "goles": 1,
-        "asistencias": 1,
+        "goles": 8,
+        "asistencias": 2,
         "rojas": 0
     },
     {
@@ -76,14 +76,14 @@
         "apellido": "Rey",
         "equipo": "Independiente",
         "goles": 0,
-        "asistencias": 4,
+        "asistencias": 7,
         "rojas": 0
     },
     {
         "nombre": "Ayrton",
         "apellido": "Costa",
         "equipo": "Independiente",
-        "goles": 2,
+        "goles": 3,
         "asistencias": 2,
         "rojas": 0
     },
@@ -91,7 +91,7 @@
         "nombre": "Gabriel",
         "apellido": "\u00c1valos",
         "equipo": "Independiente",
-        "goles": 1,
+        "goles": 4,
         "asistencias": 3,
         "rojas": 0
     },
@@ -99,7 +99,7 @@
         "nombre": "Facundo",
         "apellido": "Altamirano",
         "equipo": "San Lorenzo",
-        "goles": 1,
+        "goles": 2,
         "asistencias": 2,
         "rojas": 0
     },
@@ -108,15 +108,15 @@
         "apellido": "Hern\u00e1ndez",
         "equipo": "San Lorenzo",
         "goles": 0,
-        "asistencias": 1,
+        "asistencias": 2,
         "rojas": 0
     },
     {
         "nombre": "Adam",
         "apellido": "Bareiro",
         "equipo": "San Lorenzo",
-        "goles": 1,
-        "asistencias": 1,
+        "goles": 2,
+        "asistencias": 3,
         "rojas": 0
     },
     {
@@ -131,7 +131,7 @@
         "nombre": "Guillermo",
         "apellido": "Soto",
         "equipo": "Hurac\u00e1n",
-        "goles": 1,
+        "goles": 2,
         "asistencias": 3,
         "rojas": 0
     },
@@ -139,15 +139,15 @@
         "nombre": "Ignacio",
         "apellido": "Pussetto",
         "equipo": "Hurac\u00e1n",
-        "goles": 1,
-        "asistencias": 1,
+        "goles": 3,
+        "asistencias": 3,
         "rojas": 0
     },
     {
         "nombre": "Tom\u00e1s",
         "apellido": "Marchiori",
         "equipo": "Velez Sarsfield",
-        "goles": 1,
+        "goles": 3,
         "asistencias": 2,
         "rojas": 0
     },
@@ -155,7 +155,7 @@
         "nombre": "Valent\u00edn",
         "apellido": "G\u00f3mez",
         "equipo": "Velez Sarsfield",
-        "goles": 2,
+        "goles": 8,
         "asistencias": 0,
         "rojas": 0
     },
@@ -163,23 +163,23 @@
         "nombre": "Claudio",
         "apellido": "Aquino",
         "equipo": "Velez Sarsfield",
-        "goles": 0,
-        "asistencias": 3,
+        "goles": 2,
+        "asistencias": 4,
         "rojas": 0
     },
     {
         "nombre": "Mariano",
         "apellido": "And\u00fajar",
         "equipo": "Estudiantes",
-        "goles": 0,
-        "asistencias": 0,
+        "goles": 2,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Zaid",
         "apellido": "Romero",
         "equipo": "Estudiantes",
-        "goles": 1,
+        "goles": 5,
         "asistencias": 4,
         "rojas": 0
     },
@@ -187,32 +187,32 @@
         "nombre": "Mauro",
         "apellido": "Boselli",
         "equipo": "Estudiantes",
-        "goles": 2,
-        "asistencias": 1,
+        "goles": 4,
+        "asistencias": 2,
         "rojas": 0
     },
     {
         "nombre": "Nelson",
         "apellido": "Insfr\u00e1n",
         "equipo": "Gimnasia",
-        "goles": 1,
-        "asistencias": 1,
+        "goles": 2,
+        "asistencias": 2,
         "rojas": 0
     },
     {
         "nombre": "Bruno",
         "apellido": "Palazzo",
         "equipo": "Gimnasia",
-        "goles": 1,
-        "asistencias": 0,
+        "goles": 2,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Cristian",
         "apellido": "Tarragona",
         "equipo": "Gimnasia",
-        "goles": 2,
-        "asistencias": 3,
+        "goles": 3,
+        "asistencias": 5,
         "rojas": 0
     },
     {
@@ -228,14 +228,14 @@
         "apellido": "Martino",
         "equipo": "Newell's Old Boys",
         "goles": 1,
-        "asistencias": 0,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Brian",
         "apellido": "Aguirre",
         "equipo": "Newell's Old Boys",
-        "goles": 1,
+        "goles": 2,
         "asistencias": 1,
         "rojas": 0
     },
@@ -243,24 +243,24 @@
         "nombre": "Jorge",
         "apellido": "Broun",
         "equipo": "Rosario Central",
-        "goles": 0,
-        "asistencias": 0,
+        "goles": 1,
+        "asistencias": 1,
         "rojas": 0
     },
     {
         "nombre": "Carlos",
         "apellido": "Quintana",
         "equipo": "Rosario Central",
-        "goles": 4,
-        "asistencias": 4,
+        "goles": 8,
+        "asistencias": 5,
         "rojas": 0
     },
     {
         "nombre": "Jaminton",
         "apellido": "Campaz",
         "equipo": "Rosario Central",
-        "goles": 3,
-        "asistencias": 3,
+        "goles": 4,
+        "asistencias": 4,
         "rojas": 0
     },
     {
@@ -275,8 +275,8 @@
         "nombre": "Miguel",
         "apellido": "Torr\u00e9n",
         "equipo": "Argentinos Juniors",
-        "goles": 0,
-        "asistencias": 2,
+        "goles": 1,
+        "asistencias": 4,
         "rojas": 0
     },
     {

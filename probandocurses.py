@@ -24,8 +24,8 @@ def menu(stdscr):
         return
     while True:
         stdscr.clear()
-        stdscr.addstr(0, 0, "LigaConnect - Menú Principal\n")
-        stdscr.addstr(1, 0, "-----------------------------\n")
+        stdscr.addstr(0, 0, "LigaConnect - Menú Principal", curses.A_BOLD | curses.A_UNDERLINE)
+        stdscr.addstr(1, 0, "-----------------------------", curses.A_BOLD)
         stdscr.addstr(2, 0, "1. Agregar jugador\n")
         stdscr.addstr(3, 0, "2. Simular partidos\n")
         stdscr.addstr(4, 0, "3. Mostrar partidos programados\n")
@@ -37,13 +37,13 @@ def menu(stdscr):
         stdscr.addstr(10,0, "9. Comprar entrada\n")
         stdscr.addstr(11,0, "10. Resetear puntajes\n")
         stdscr.addstr(12,0, "11. Salir\n")
-        stdscr.addstr(14,0, "Seleccione una opción (1-11): ")
+        stdscr.addstr(14,0, "Seleccione una opción (1-11):", curses.A_BOLD)
 
         stdscr.refresh()
         opcion = stdscr.getstr().decode("utf-8").strip()
 
         if not opcion.isdigit() or not (1 <= int(opcion) <= 11):
-            stdscr.addstr(16,0,"❌ Opción inválida. Presione una tecla para continuar.")
+            stdscr.addstr(16,0,"❌ Opción inválida. Presione una tecla para continuar.", curses.A_REVERSE)
             stdscr.getch()
             continue
 
@@ -177,7 +177,7 @@ def menu(stdscr):
                 stdscr.getch()
             case '11':
                 stdscr.clear()
-                stdscr.addstr(0,0,"👋 ¡Hasta luego!")
+                stdscr.addstr(0,0,"👋 ¡Hasta luego!", curses.A_BOLD | curses.A_UNDERLINE)
                 stdscr.refresh()
                 curses.napms(1500)
                 break
