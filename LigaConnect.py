@@ -195,50 +195,54 @@ def simular_partidos():
     print("✅ Partidos simulados.\n")
 
 def mostrar_partidos():
-    print("\n=== Lista de Partidos Disponibles ===")
+    resultado = "\n=== Lista de Partidos Disponibles ===\n"
     for p in partidos:
-        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y') #Selección de fechas
-        print(f"ID: {p['id']}")
-        print(f"Fecha: {fecha_fmt}")
-        print(f"Estadio: {p['estadio']}")
-        print(f"Equipos: {p['equipos']}")
-        print(f"Capacidad: {p['capacidad']:,} personas")
-        print(f"Entradas vendidas: {p['entradas_vendidas']}")
-        print(f"Precio: ${p['precio']:,} ARS")
-        print("---------------------------")
+        fecha_fmt = datetime.strptime(p['fecha'], '%Y-%m-%d').strftime('%d de %B, %Y')
+        resultado += f"ID: {p['id']}\n"
+        resultado += f"Fecha: {fecha_fmt}\n"
+        resultado += f"Estadio: {p['estadio']}\n"
+        resultado += f"Equipos: {p['equipos']}\n"
+        resultado += f"Capacidad: {p['capacidad']:,} personas\n"
+        resultado += f"Entradas vendidas: {p['entradas_vendidas']}\n"
+        resultado += f"Precio: ${p['precio']:,} ARS\n"
+        resultado += "---------------------------\n"
+    return resultado
 
 #Funciones para imprimir datos
 
 def mostrar_tabla():
-    print("\n🏆 Tabla de posiciones:")
+    resultado = "\n🏆 Tabla de posiciones:\n"
     tabla = sorted(equipos, key=lambda x: x['puntos'], reverse=True)
     for i, e in enumerate(tabla, start=1):
-        print(f"{i}. {e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})")
+        resultado += f"{i}. {e['nombre']}: {e['puntos']} pts (PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']})\n"
+    return resultado
 
-def mostrar_top5_consola(clave, titulo, emoji, unidad): #Top 5 (Goles, asistencias y tarjetas rojas)
-    print(f"\n{emoji} Ranking De {titulo}:")
+def mostrar_top5_consola(clave, titulo, emoji, unidad):
+    resultado = f"\n{emoji} Ranking De {titulo}:\n"
     if not jugadores:
-        print("No hay jugadores cargados.")
-        return
+        resultado += "No hay jugadores cargados.\n"
+        return resultado
     
     ordenado = sorted(jugadores, key=lambda x: x.get(clave, 0), reverse=True)
     for i, j in enumerate(ordenado[:5], start=1):
-        print(f"{i}. {j['nombre']} {j['apellido']} ({j['equipo']}) - {j.get(clave, 0)} {unidad}")
+        resultado += f"{i}. {j['nombre']} {j['apellido']} ({j['equipo']}) - {j.get(clave,0)} {unidad}\n"
+    return resultado
 
 def ver_liga_completa():
-    print("\n📋 TODOS LOS EQUIPOS:")
+    resultado = "\n📋 TODOS LOS EQUIPOS:\n"
     if not equipos:
-        print("No hay equipos cargados.")
+        resultado += "No hay equipos cargados.\n"
     else:
         for e in equipos:
-            print(f"{e['nombre']} - PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']}, Puntos: {e['puntos']}")
+            resultado += f"{e['nombre']} - PJ: {e['pj']}, PG: {e['pg']}, PE: {e['pe']}, PP: {e['pp']}, Puntos: {e['puntos']}\n"
     
-    print("\n👥 TODOS LOS JUGADORES:")
+    resultado += "\n👥 TODOS LOS JUGADORES:\n"
     if not jugadores:
-        print("No hay jugadores cargados.")
+        resultado += "No hay jugadores cargados.\n"
     else:
         for j in jugadores:
-            print(f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}")
+            resultado += f"{j['nombre']} {j['apellido']} - Goles: {j['goles']}, Asistencias: {j['asistencias']}, Rojas: {j['rojas']}\n"
+    return resultado
 
 #Función para procesar pagos de las entradas
 def procesar_pago():
@@ -350,27 +354,141 @@ def menu():
         #Aplicación de case para optimizar el código
         match opcion:
             case '1':
+                # Confirmación simple, no utiliza pad
                 nombre = input("Nombre del jugador: ")
                 apellido = input("Apellido del jugador: ")
                 agregar_jugador(nombre, apellido)
+                print("Jugador agregado. Presione Enter para volver.")
+                input()
             case '2':
+                # Confirmación simple, no utiliza pad
                 simular_partidos()
+                print("Simulación completa. Presione Enter para volver.")
+                input()
             case '3':
-                mostrar_partidos()
+                # Scroll para mostrar_partidos()
+                texto = mostrar_partidos()
+                lines = texto.splitlines()
+                pos = 0
+                h = 20  # altura de ventana simulada
+                w = 80  # ancho de ventana simulada
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '4':
-                mostrar_tabla()
+                # Scroll para mostrar_tabla()
+                texto = mostrar_tabla()
+                lines = texto.splitlines()
+                pos = 0
+                h = 20
+                w = 80
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '5':
-                mostrar_top5_consola('goles', 'Goleadores', '⚽', 'goles')
+                # Scroll para mostrar_top5_consola('goles', ...)
+                texto = mostrar_top5_consola('goles', 'Goleadores', '⚽', 'goles')
+                lines = texto.splitlines()
+                pos = 0
+                h = 20
+                w = 80
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '6':
-                mostrar_top5_consola('asistencias', 'Asistentes', '🎯', 'asistencias')
+                # Scroll para mostrar_top5_consola('asistencias', ...)
+                texto = mostrar_top5_consola('asistencias', 'Asistentes', '🎯', 'asistencias')
+                lines = texto.splitlines()
+                pos = 0
+                h = 20
+                w = 80
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '7':
-                mostrar_top5_consola('rojas', 'Expulsados', '🟥', 'rojas')
+                # Scroll para mostrar_top5_consola('rojas', ...)
+                texto = mostrar_top5_consola('rojas', 'Expulsados', '🟥', 'rojas')
+                lines = texto.splitlines()
+                pos = 0
+                h = 20
+                w = 80
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '8':
-                ver_liga_completa()
+                # Scroll para ver_liga_completa()
+                texto = ver_liga_completa()
+                lines = texto.splitlines()
+                pos = 0
+                h = 20
+                w = 80
+                while True:
+                    print("\n".join(lines[pos:pos+h]))
+                    print("↑↓ para desplazar, q para volver.".ljust(w-1))
+                    key = input().lower()
+                    if key == 'q':
+                        break
+                    elif key == '' or key == 's' or key == '↓':
+                        if pos < len(lines) - h:
+                            pos += 1
+                    elif key == 'w' or key == '↑':
+                        if pos > 0:
+                            pos -= 1
             case '9':
+                # Confirmación simple, no utiliza pad
                 procesar_pago()
+                print("Operación finalizada. Presione Enter para volver.")
+                input()
             case '10':
-                 resetear_puntajes()
+                # Confirmación simple, no utiliza pad
+                resetear_puntajes()
+                print("Puntajes reseteados. Presione Enter para volver.")
+                input()
             case '11':
                 print("👋 ¡Hasta luego!")
                 break

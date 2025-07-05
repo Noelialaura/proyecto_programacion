@@ -16,5 +16,14 @@
         "cantidad": 4,
         "precio_unitario": 33014,
         "total": 132056
+    },
+    {
+        "cliente": "ddddd",
+        "partido": "V\u00e9lez Sarsfield vs Estudiantes",
+        "estadio": "Estadio B",
+        "fecha": "2025-06-10",
+        "cantidad": 1,
+        "precio_unitario": 21426,
+        "total": 21426
     }
 ]
