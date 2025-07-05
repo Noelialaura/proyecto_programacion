@@ -25,5 +25,23 @@
         "cantidad": 1,
         "precio_unitario": 21426,
         "total": 21426
+    },
+    {
+        "cliente": "Tobias",
+        "partido": "Boca Juniors vs V\u00e9lez Sarsfield",
+        "estadio": "Estadio A",
+        "fecha": "2025-06-12",
+        "cantidad": 2,
+        "precio_unitario": 49232,
+        "total": 98464
+    },
+    {
+        "cliente": "Tobias",
+        "partido": "Boca Juniors vs V\u00e9lez Sarsfield",
+        "estadio": "Estadio A",
+        "fecha": "2025-06-12",
+        "cantidad": 2,
+        "precio_unitario": 49232,
+        "total": 98464
     }
 ]

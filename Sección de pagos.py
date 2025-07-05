@@ -124,7 +124,7 @@ def procesar_pago(stdscr):
         stdscr.addstr("❌ Partido no encontrado. Presione una tecla para volver.")
         stdscr.getch()
 
-def menu():
+def menu(stdscr=None):
     while True:
         print("\n--- Menú Principal ---")
         print("1. Agregar equipo")
@@ -159,7 +159,10 @@ def menu():
             case '8':
                 print("[Funcionalidad pendiente: Ver toda la liga]")
             case '9':
-                curses.wrapper(procesar_pago)
+                if stdscr is not None:
+                    procesar_pago(stdscr)
+                else:
+                    curses.wrapper(procesar_pago)
             case '10':
                 mostrar_partidos()
             case '11':

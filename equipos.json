@@ -1,98 +1,98 @@
 [
     {
         "nombre": "River Plate",
-        "pj": 4,
+        "pj": 8,
         "pg": 0,
-        "pe": 0,
-        "pp": 4,
-        "puntos": 0
+        "pe": 2,
+        "pp": 6,
+        "puntos": 2
     },
     {
         "nombre": "Boca Juniors",
-        "pj": 4,
-        "pg": 2,
-        "pe": 2,
-        "pp": 0,
-        "puntos": 8
+        "pj": 8,
+        "pg": 3,
+        "pe": 3,
+        "pp": 2,
+        "puntos": 12
     },
     {
         "nombre": "Racing Club",
-        "pj": 4,
-        "pg": 1,
-        "pe": 1,
-        "pp": 2,
-        "puntos": 4
-    },
-    {
-        "nombre": "Independiente",
-        "pj": 4,
-        "pg": 3,
-        "pe": 0,
-        "pp": 1,
-        "puntos": 9
-    },
-    {
-        "nombre": "San Lorenzo",
-        "pj": 4,
+        "pj": 8,
         "pg": 2,
         "pe": 2,
-        "pp": 0,
+        "pp": 4,
         "puntos": 8
     },
     {
+        "nombre": "Independiente",
+        "pj": 8,
+        "pg": 3,
+        "pe": 1,
+        "pp": 4,
+        "puntos": 10
+    },
+    {
+        "nombre": "San Lorenzo",
+        "pj": 8,
+        "pg": 4,
+        "pe": 3,
+        "pp": 1,
+        "puntos": 15
+    },
+    {
         "nombre": "Huracan",
-        "pj": 4,
+        "pj": 8,
         "pg": 1,
-        "pe": 0,
-        "pp": 3,
-        "puntos": 3
+        "pe": 1,
+        "pp": 6,
+        "puntos": 4
     },
     {
         "nombre": "Velez Sarsfield",
-        "pj": 4,
-        "pg": 0,
-        "pe": 3,
-        "pp": 1,
-        "puntos": 3
+        "pj": 8,
+        "pg": 1,
+        "pe": 5,
+        "pp": 2,
+        "puntos": 8
     },
     {
         "nombre": "Estudiantes",
-        "pj": 4,
-        "pg": 1,
-        "pe": 1,
-        "pp": 2,
-        "puntos": 4
+        "pj": 8,
+        "pg": 2,
+        "pe": 2,
+        "pp": 4,
+        "puntos": 8
     },
     {
         "nombre": "Gimnasia",
-        "pj": 4,
-        "pg": 2,
-        "pe": 1,
-        "pp": 1,
-        "puntos": 7
+        "pj": 8,
+        "pg": 3,
+        "pe": 2,
+        "pp": 3,
+        "puntos": 11
     },
     {
         "nombre": "Newell's Old Boys",
-        "pj": 4,
-        "pg": 1,
+        "pj": 8,
+        "pg": 5,
         "pe": 1,
         "pp": 2,
-        "puntos": 4
+        "puntos": 16
     },
     {
         "nombre": "Rosario Central",
-        "pj": 4,
+        "pj": 8,
         "pg": 2,
-        "pe": 1,
+        "pe": 5,
         "pp": 1,
-        "puntos": 7
+        "puntos": 11
     },
     {
         "nombre": "Argentinos Juniors",
-        "pj": 4,
-        "pg": 1,
-        "pe": 0,
-        "pp": 3,
-        "puntos": 3
+        "pj": 8,
+        "pg": 3,
+        "pe": 1,
+        "pp": 4,
+        "puntos": 10
     }
 ]

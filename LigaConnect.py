@@ -1,6 +1,7 @@
 #Llamada de bibliotecas
 import random
 import json
+import curses
 with open("equipos.json", "r", encoding="utf-8") as f:
     equipos = json.load(f)
 from datetime import datetime, timedelta
@@ -31,26 +32,13 @@ except (FileNotFoundError, json.JSONDecodeError):
 #Excepciones en carga de jugador
 
 def agregar_jugador(nombre, apellido):
-    while True:
-        try:
-            int(nombre)
-            raise ValueError
-        except ValueError:
-            if any(char.isdigit() for char in nombre):
-                print("❌ El nombre no debe contener números.")
-                nombre = input("Ingrese un nombre: ")
-            else:
-                break
-    while True:
-        try:
-            int(apellido)
-            raise ValueError
-        except ValueError:
-            if any(char.isdigit() for char in apellido):
-                print("❌ El apellido no debe contener números.")
-                apellido = input("Ingrese un apellido : ")
-            else:
-                break
+    while any(char.isdigit() for char in nombre):
+        print("❌ El nombre no debe contener números.")
+        nombre = input("Ingrese un nombre válido: ")
+
+    while any(char.isdigit() for char in apellido):
+        print("❌ El apellido no debe contener números.")
+        apellido = input("Ingrese un apellido válido: ")
 
 
     print("📋 Equipos disponibles:")
@@ -257,88 +245,134 @@ def ver_liga_completa():
     return resultado
 
 #Función para procesar pagos de las entradas
-def procesar_pago():
-    mostrar_partidos()
-    opcion = input("\n¿Desea comprar una entrada? (s para sí, m para volver al menú): ").strip().lower() #Evita errores (permite mayus o min)
-    if opcion != 's':
-        print("🔙 Volviendo al menú principal...")
-        return
+def procesar_pago(stdscr):
+    h, w = stdscr.getmaxyx()
+    stdscr.clear()
+    texto = mostrar_partidos()
+    lines = texto.splitlines()
+    pos = 0
+
+    # Mostrar lista de partidos con scroll
+    while True:
+        stdscr.clear()
+        for i in range(h - 3):
+            if pos + i < len(lines):
+                stdscr.addstr(i, 0, lines[pos + i])
+        stdscr.addstr(h - 2, 0, "↑↓ para desplazar, Enter para continuar, q para cancelar.")
+        stdscr.refresh()
+        key = stdscr.getch()
+        if key == ord('q'):
+            return
+        elif key == curses.KEY_DOWN and pos < len(lines) - (h - 3):
+            pos += 1
+        elif key == curses.KEY_UP and pos > 0:
+            pos -= 1
+        elif key in [10, 13]:
+            break
+
+    stdscr.clear()
+    stdscr.addstr(0,0,"Ingrese el ID del partido a pagar: ")
+    curses.echo()
+    partido_id_str = stdscr.getstr().decode("utf-8").strip()
+    curses.noecho()
+
     try:
-        partido_id = int(input("Ingrese el ID del partido a pagar: "))
+        partido_id = int(partido_id_str)
         partido = next((p for p in partidos if p['id'] == partido_id), None)
-        
+
         if not partido:
-            print("❌ Partido no encontrado.")
+            stdscr.addstr(2,0,"❌ Partido no encontrado.")
+            stdscr.getch()
             return
-        
+
         if partido['entradas_vendidas'] >= partido['capacidad']:
-            print("❌ No hay entradas disponibles para este partido.")
+            stdscr.addstr(2,0,"❌ No hay entradas disponibles.")
+            stdscr.getch()
             return
-        
-        print(f"\nProcesando pago para: {partido['equipos']}")
-        print(f"Estadio: {partido['estadio']}, Fecha: {partido['fecha']}")
-        print(f"Precio por entrada: ${partido['precio']:,} ARS")
-        print(f"Entradas disponibles: {partido['capacidad'] - partido['entradas_vendidas']}")
-        
-        cantidad = int(input("¿Cuántas entradas desea comprar? "))
+
+        stdscr.addstr(2,0,f"Procesando pago para: {partido['equipos']}")
+        stdscr.addstr(3,0,f"Estadio: {partido['estadio']}, Fecha: {partido['fecha']}")
+        stdscr.addstr(4,0,f"Precio: ${partido['precio']:,}")
+        stdscr.addstr(5,0,f"Entradas disponibles: {partido['capacidad'] - partido['entradas_vendidas']}")
+
+        stdscr.addstr(7,0,"¿Cuántas entradas desea comprar?: ")
+        curses.echo()
+        cantidad_str = stdscr.getstr().decode("utf-8").strip()
+        curses.noecho()
+        cantidad = int(cantidad_str)
+
         if cantidad <= 0:
-            print("❌ Cantidad inválida.")
+            stdscr.addstr(9,0,"❌ Cantidad inválida.")
+            stdscr.getch()
             return
-        
+
         if partido['entradas_vendidas'] + cantidad > partido['capacidad']:
-            print("❌ No hay suficientes entradas disponibles.")
+            stdscr.addstr(9,0,"❌ No hay suficientes entradas.")
+            stdscr.getch()
             return
-        
+
         total = cantidad * partido['precio']
-        print(f"\nTotal a pagar: ${total:,} ARS")
-        
-        confirmacion = input("¿Confirmar compra? (s/n): ").strip().lower()
-        if confirmacion == 's':
-            nombre = input("Nombre del cliente: ")
-            
-            entrada = {
-                "cliente": nombre,
-                "partido": partido['equipos'],
-                "estadio": partido['estadio'],
-                "fecha": partido['fecha'],
-                "cantidad": cantidad,
-                "precio_unitario": partido['precio'],
-                "total": total
-            }
+        stdscr.addstr(9,0,f"Total a pagar: ${total:,}")
+        stdscr.addstr(11,0,"¿Confirmar compra? (s/n): ")
+        curses.echo()
+        confirmacion = stdscr.getstr().decode("utf-8").strip().lower()
+        curses.noecho()
 
-            #Excepción para indicar cantidad de entradas compradas
-            
-            try:
-                with open("pagos.json", "r", encoding="utf-8") as f: #Archivo que registra los pagos
-                    pagos = json.load(f)
-            except (FileNotFoundError, json.JSONDecodeError):
-                pagos = []
-            
-            pagos.append(entrada)
-            with open("pagos.json", "w", encoding="utf-8") as f:
-                json.dump(pagos, f, indent=4)
-            
-            partido['entradas_vendidas'] += cantidad
+        if confirmacion != 's':
+            stdscr.addstr(13,0,"❌ Compra cancelada.")
+            stdscr.getch()
+            return
 
-            # Actualizar la lista de partidos con los datos del partido modificado
-            for i, p in enumerate(partidos):
-                if p['id'] == partido_id:
-                    partidos[i] = partido
-                    break
+        stdscr.addstr(13,0,"Nombre del cliente: ")
+        curses.echo()
+        nombre = stdscr.getstr().decode("utf-8").strip()
+        curses.noecho()
 
-            # Guardar la lista de partidos actualizada
-            try:
-                with open("partidos.json", "w", encoding="utf-8") as f:
-                    json.dump(partidos, f, indent=4)
-            except Exception as e:
-                print(f"⚠️ Error al guardar los partidos: {e}")
-            barra_de_carga()
-            print(f"✔ Compra registrada correctamente. {cantidad} entrada(s) vendida(s).")
-        else:
-            print("❌ Compra cancelada.")
-            
+        entrada = {
+            "cliente": nombre,
+            "partido": partido['equipos'],
+            "estadio": partido['estadio'],
+            "fecha": partido['fecha'],
+            "cantidad": cantidad,
+            "precio_unitario": partido['precio'],
+            "total": total
+        }
+
+        try:
+            with open("pagos.json", "r", encoding="utf-8") as f:
+                pagos = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            pagos = []
+
+        pagos.append(entrada)
+        with open("pagos.json", "w", encoding="utf-8") as f:
+            json.dump(pagos, f, indent=4)
+
+        partido['entradas_vendidas'] += cantidad
+        for i, p in enumerate(partidos):
+            if p['id'] == partido_id:
+                partidos[i] = partido
+                break
+
+        with open("partidos.json", "w", encoding="utf-8") as f:
+            json.dump(partidos, f, indent=4)
+
+        stdscr.addstr(15,0,"Procesando pago...")
+        stdscr.refresh()
+        curses.napms(1000)
+        # Barra de carga adaptada a curses antes del mensaje de confirmación (20 pasos, porcentaje, más lenta)
+        for i in range(21):
+            porcentaje = int((i / 20) * 100)
+            barra = "=" * i + " " * (20 - i)
+            stdscr.addstr(16,0,f"Procesando: [{barra}] {porcentaje}%")
+            stdscr.refresh()
+            curses.napms(120)
+        stdscr.addstr(17,0,f"✅ Compra registrada correctamente. {cantidad} entrada(s) vendida(s).")
+        stdscr.getch()
+
     except ValueError:
-        print("❌ Entrada inválida. Por favor ingrese un número.")
+        stdscr.addstr(2,0,"❌ Entrada inválida.")
+        stdscr.getch()
 
 #Programa principal con función menú 
 
